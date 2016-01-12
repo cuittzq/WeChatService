@@ -1,0 +1,427 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Common.TxtLog</name>
+    </assembly>
+    <members>
+        <member name="T:Common.TxtLog.LogIDFactory">
+            <summary>
+            主键ID工厂类
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.LogIDFactory.number">
+            <summary>
+            数字
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.LogIDFactory.lockObject">
+            <summary>
+            锁对象
+            </summary>
+        </member>
+        <member name="M:Common.TxtLog.LogIDFactory.#cctor">
+            <summary>
+            主键ID创建工厂
+            </summary>
+        </member>
+        <member name="M:Common.TxtLog.LogIDFactory.NewLogID(System.String)">
+            <summary>
+            创建一个日志ID
+            </summary>
+            <param name="tagString">标签</param>
+            <returns>日志ID</returns>
+        </member>
+        <member name="M:Common.TxtLog.LogIDFactory.GetGuidNumber">
+            <summary>
+            得到10长度的GUID数字
+            </summary>
+            <returns>GUID10个长度的数字</returns>
+        </member>
+        <member name="M:Common.TxtLog.LogIDFactory.GetRoadomNoZero(System.Int32)">
+            <summary>
+            得到随机数
+            </summary>
+            <param name="length">随机数长度</param>
+            <returns>随机数</returns>
+        </member>
+        <member name="T:Common.TxtLog.TxtLogHelper">
+            <summary>
+            文本日志操作帮助类
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.TxtLogHelper.localIpAddress">
+            <summary>
+            本机IP地址
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.TxtLogHelper.txtLogParameter">
+            <summary>
+            Txt文本日志参数
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.TxtLogHelper.logInfoObjects_Day">
+            <summary>
+            缓存日志【天】
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.TxtLogHelper.logInfoObjects_Hour">
+            <summary>
+            缓存日志【小时】
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.TxtLogHelper.logInfoObjects">
+            <summary>
+            日志信息
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.TxtLogHelper.waitOneDebug">
+            <summary>
+            通知线程等待，异步方式等待返回结果
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.TxtLogHelper.waitOne_Day">
+            <summary>
+            通知线程等待，异步方式等待返回结果
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.TxtLogHelper.waitOne_Hour">
+            <summary>
+            通知线程等待，异步方式等待返回结果
+            </summary>
+        </member>
+        <member name="M:Common.TxtLog.TxtLogHelper.#cctor">
+            <summary>
+            构造函数
+            <remarks>先调用InitTxtHelper方法，完成组件的实例化</remarks>
+            </summary>
+        </member>
+        <member name="M:Common.TxtLog.TxtLogHelper.InitTxtHelper(Common.TxtLog.TxtLogParameter)">
+            <summary>
+            初始化文本日志帮助类
+            <remarks>整个程序使用该组件时，只需要在程序初始化时调用该方法初始化即可（修改将影响整个程序，如果需要根据业务不同调整参数，需要在没处不同业务处都调用该方法）</remarks>
+            </summary>
+            <param name="parameter">Txt文本日志参数</param>
+        </member>
+        <member name="M:Common.TxtLog.TxtLogHelper.WriteLog_Hour(Common.TxtLog.TxtLogInfoObject)">
+            <summary>
+            记录文本日志【按小时分文件】
+            </summary>
+            <param name="logInfoObject">文本日志信息</param>
+        </member>
+        <member name="M:Common.TxtLog.TxtLogHelper.WriteLog_Day(Common.TxtLog.TxtLogInfoObject)">
+            <summary>
+            记录文本日志【按天分文件】
+            </summary>
+            <param name="logInfoObject">文本日志信息</param>
+        </member>
+        <member name="M:Common.TxtLog.TxtLogHelper.WriteDebugLog(System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            记录调试日志
+            </summary>
+            <param name="logInofObject">日志信息</param>
+        </member>
+        <member name="M:Common.TxtLog.TxtLogHelper.AnsyncWriteLog_Hour(Common.TxtLog.TxtLogInfoObject)">
+            <summary>
+            异步记录文本日志【按小时分文件】
+            </summary>
+            <param name="logInfoObject">文本日志信息</param>
+        </member>
+        <member name="M:Common.TxtLog.TxtLogHelper.AnsyncWriteLog_Day(Common.TxtLog.TxtLogInfoObject)">
+            <summary>
+            异步记录文本日志【按天分文件】
+            </summary>
+            <param name="logInfoObject">文本日志信息</param>
+        </member>
+        <member name="M:Common.TxtLog.TxtLogHelper.CacheWriteDebugLog(System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            记录调试日志【采用缓存记录】
+            </summary>
+            <param name="logInfoObject">日志信息</param>
+        </member>
+        <member name="M:Common.TxtLog.TxtLogHelper.CacheWriteLog_Hour(Common.TxtLog.TxtLogInfoObject)">
+            <summary>
+            缓存记录文本日志【按小时分文件】
+            </summary>
+            <param name="logInfoObject">文本日志信息</param>
+        </member>
+        <member name="M:Common.TxtLog.TxtLogHelper.CacheWriteLog_Day(Common.TxtLog.TxtLogInfoObject)">
+            <summary>
+            缓存记录文本日志【按天分文件】
+            </summary>
+            <param name="logInfoObject">文本日志信息</param>
+        </member>
+        <member name="M:Common.TxtLog.TxtLogHelper.StartCacheWriteDebugLog">
+            <summary>
+            开始记录调试日志
+            </summary>
+        </member>
+        <member name="M:Common.TxtLog.TxtLogHelper.StartCacheWirteLog_Hour">
+            <summary>
+            开始写缓存日志【小时】
+            </summary>
+        </member>
+        <member name="M:Common.TxtLog.TxtLogHelper.StartCacheWirteLog_Day">
+            <summary>
+            开始写缓存日志【天】
+            </summary>
+        </member>
+        <member name="M:Common.TxtLog.TxtLogHelper.AnsyncCacheWirteLogs_Hour">
+            <summary>
+            异步写缓存日志【小时】
+            </summary>
+        </member>
+        <member name="M:Common.TxtLog.TxtLogHelper.AnsyncCacheWirteLogs_Day">
+            <summary>
+            异步写缓存日志【天】
+            </summary>
+        </member>
+        <member name="M:Common.TxtLog.TxtLogHelper.AnsyncCacheWirteDebugLogs">
+            <summary>
+            异步记录调试日志
+            </summary>
+        </member>
+        <member name="M:Common.TxtLog.TxtLogHelper.CreateDir(System.String)">
+            <summary>
+            创建文件夹路径
+            </summary>
+            <param name="dirPath">文件夹路径</param>
+        </member>
+        <member name="M:Common.TxtLog.TxtLogHelper.SendEmail(System.String)">
+            <summary>
+            发送邮件
+            </summary>
+            <param name="errorMessage">错误消息</param>
+        </member>
+        <member name="M:Common.TxtLog.TxtLogHelper.GetLoacalIP">
+            <summary>
+            获取本机IP地址
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Common.TxtLog.TxtLogHelper.WirteLogHandle">
+            <summary>
+            记录日志委托
+            </summary>
+            <param name="logInfoObject">文本日志信息</param>
+        </member>
+        <member name="T:Common.TxtLog.TxtLogHelper.CacheWriteLogHndler">
+            <summary>
+            缓存记录日志委托
+            </summary>
+        </member>
+        <member name="T:Common.TxtLog.EnumLogType">
+            <summary>
+            日志类型
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.EnumLogType.Debug">
+            <summary>
+            调试
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.EnumLogType.Info">
+            <summary>
+            流程信息
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.EnumLogType.Error">
+            <summary>
+            错误信息
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.EnumLogType.Warn">
+            <summary>
+            警告信息
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.EnumLogType.Fatal">
+            <summary>
+            致命
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.EnumLogType.Other">
+            <summary>
+            其它
+            </summary>
+        </member>
+        <member name="T:Common.TxtLog.TxtLogInfoObject">
+            <summary>
+            Txt日志信息对象
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.TxtLogInfoObject.timestamp">
+            <summary>
+            时间戳，格式yyyy-MM-dd HH:mm:ss
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.TxtLogInfoObject.logMessage">
+            <summary>
+            日志信息
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.TxtLogInfoObject.logObject">
+            <summary>
+            日志对象
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.TxtLogInfoObject.logType">
+            <summary>
+            日志类型
+            </summary>
+        </member>
+        <member name="M:Common.TxtLog.TxtLogInfoObject.#ctor">
+            <summary>
+            Txt日志信息对象
+            </summary>
+        </member>
+        <member name="P:Common.TxtLog.TxtLogInfoObject.TimeStamp">
+            <summary>
+            时间戳，格式yyyy-MM-dd HH:mm:ss
+            <remarks>只读属性</remarks>
+            </summary>
+        </member>
+        <member name="P:Common.TxtLog.TxtLogInfoObject.LogMessage">
+            <summary>
+            日志信息
+            </summary>
+        </member>
+        <member name="P:Common.TxtLog.TxtLogInfoObject.LogObject">
+            <summary>
+            日志对象
+            </summary>
+        </member>
+        <member name="P:Common.TxtLog.TxtLogInfoObject.LogType">
+            <summary>
+            日志类型
+            </summary>
+        </member>
+        <member name="T:Common.TxtLog.TxtLogParameter">
+            <summary>
+            Txt文本日志参数
+            <remarks>该类指定Txt文本日志记录所需要的参数信息</remarks>
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.TxtLogParameter.applicationName">
+            <summary>
+            使用当前组件的程序名称
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.TxtLogParameter.logSavePath">
+            <summary>
+            Txt日志保存的路径
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.TxtLogParameter.sendEmailParameter">
+            <summary>
+            发送邮件参数
+            </summary>
+        </member>
+        <member name="P:Common.TxtLog.TxtLogParameter.ApplicaionName">
+            <summary>
+            使用当前组件的程序名称
+            </summary>
+        </member>
+        <member name="P:Common.TxtLog.TxtLogParameter.LogSavePath">
+            <summary>
+            Txt日志保存的路径
+            <remarks>默认路径C:\程序日志</remarks>
+            </summary>
+        </member>
+        <member name="P:Common.TxtLog.TxtLogParameter.SendEmailParameter">
+            <summary>
+            发送邮件参数
+            <remarks>如果不需要发送邮件，可不赋值</remarks>
+            </summary>
+        </member>
+        <member name="T:Common.TxtLog.EmailParameter">
+            <summary>
+            邮件参数
+            <remarks>当日志需要使用邮件通知时，邮件的相关参数信息</remarks>
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.EmailParameter.emailSubject">
+            <summary>
+            邮件标题
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.EmailParameter.mailPriority">
+            <summary>
+            邮件优先级
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.EmailParameter.emailServerAddress">
+            <summary>
+            邮件服务器地址
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.EmailParameter.emailServerPort">
+            <summary>
+            邮件服务器端口
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.EmailParameter.emailSendAddress">
+            <summary>
+            发送邮箱
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.EmailParameter.emailSendpassword">
+            <summary>
+            发送邮箱密码
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.EmailParameter.emailAddress">
+            <summary>
+            邮件通知地址，多个用“;”隔开
+            </summary>
+        </member>
+        <member name="F:Common.TxtLog.EmailParameter.emailCcAddress">
+            <summary>
+            邮件抄送地址，多个用“;”隔开
+            </summary>
+        </member>
+        <member name="P:Common.TxtLog.EmailParameter.EmailAddress">
+            <summary>
+            邮件通知地址，多个用“;”隔开
+            </summary>
+        </member>
+        <member name="P:Common.TxtLog.EmailParameter.EmailCcAddress">
+            <summary>
+            邮件抄送地址，多个用“;”隔开
+            </summary>
+        </member>
+        <member name="P:Common.TxtLog.EmailParameter.EmailSubject">
+            <summary>
+            邮件标题
+            </summary>
+        </member>
+        <member name="P:Common.TxtLog.EmailParameter.MailPriority">
+            <summary>
+            邮件优先级
+            </summary>
+        </member>
+        <member name="P:Common.TxtLog.EmailParameter.EmailServerAddress">
+            <summary>
+            邮件服务器地址
+            <remarks>默认值为smtp.exmail.qq.com</remarks>
+            </summary>
+        </member>
+        <member name="P:Common.TxtLog.EmailParameter.EmailServerPort">
+            <summary>
+            邮件服务器端口
+            <remarks>默认值为25</remarks>
+            </summary>
+        </member>
+        <member name="P:Common.TxtLog.EmailParameter.EmailSendAddress">
+            <summary>
+            发送邮箱
+            <remarks>默认值：hongfu@720u.com</remarks>
+            </summary>
+        </member>
+        <member name="P:Common.TxtLog.EmailParameter.EmailSendPassword">
+            <summary>
+            发送邮箱密码
+            <remarks>默认值与发送邮箱默认值匹配</remarks>
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,691 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Common.Business</name>
+    </assembly>
+    <members>
+        <member name="T:Common.Business.BusinessBase`2">
+            <summary>
+            业务基类
+            </summary>
+            <typeparam name="I">传入参数类型（若不需要传入参数，此处请使用string类型）</typeparam>
+            <typeparam name="R">返回结果类型（若不需要返回类型，此处请使用string类型）</typeparam>
+        </member>
+        <member name="F:Common.Business.BusinessBase`2.startExecuteTime">
+            <summary>
+            执行开始时间
+            </summary>
+        </member>
+        <member name="F:Common.Business.BusinessBase`2.parameter">
+            <summary>
+            参数
+            </summary>
+        </member>
+        <member name="F:Common.Business.BusinessBase`2.resultObject">
+            <summary>
+            结果对象
+            <remarks>在具体业务实现方法RealizeBusiness实现过程中，如果需要返回值，请赋值给该变量，对外可通过只读属性ResultObject获取</remarks>
+            </summary>
+        </member>
+        <member name="M:Common.Business.BusinessBase`2.#ctor(`0)">
+            <summary>
+            业务执行基类
+            <remarks>业务执行需要传入参数，通过该实例化方法传入</remarks>
+            </summary>
+            <param name="parameter">参数</param>
+        </member>
+        <member name="M:Common.Business.BusinessBase`2.#ctor">
+            <summary>
+            业务执行基类
+            <remarks>业务执行不需要传入参数，通过该实例化方法实例化对象</remarks>
+            </summary>
+        </member>
+        <member name="M:Common.Business.BusinessBase`2.SyncStartExecute">
+            <summary>
+            同步开始执行
+            <remarks>该方法执行完成即表示完成，也可通过完成事件监控是否执行完成</remarks>
+            </summary>
+        </member>
+        <member name="M:Common.Business.BusinessBase`2.AsyncStartExecute">
+            <summary>
+            异步开始执行
+            <remarks>使用委托方法（执行完成，通过完成事件CompleteEvent通知）</remarks>
+            </summary>
+        </member>
+        <member name="M:Common.Business.BusinessBase`2.ThreadStartExecute(System.Boolean,System.Threading.ThreadPriority)">
+            <summary>
+            异步开始执行
+            <remarks>使用线程（执行完成，通过完成事件CompleteEvent通知）</remarks>
+            </summary>
+        </member>
+        <member name="M:Common.Business.BusinessBase`2.RealizeBusiness(`0)">
+            <summary>
+            实现业务方法
+            <remarks>继承该类后，具体的业务实现代码填充该方法，如果实例化时未传入参数，则在具体的业务实现过程中该方法的参数将是默认值（若需要返回结果，请在该业务实现方法中，将值填充到变量resultObject，对外可通过公开只读属性ResultObject获取）</remarks>
+            </summary>
+            <param name="parameter">参数</param>
+        </member>
+        <member name="E:Common.Business.BusinessBase`2.ErrorEvent">
+            <summary>
+            错误事件
+            <remarks>在业务执行过程中，出现异常错误时，将采用该事件通知。在具体的业务实现方法RealizeBusiness，可根据业务需要触发该事件。</remarks>
+            </summary>
+        </member>
+        <member name="E:Common.Business.BusinessBase`2.MessageEvent">
+            <summary>
+            消息事件
+            <remarks>在具体业务实现时，需要对外进行业务进度执行消息通知，可自定义调用该事件实现</remarks>
+            </summary>
+        </member>
+        <member name="E:Common.Business.BusinessBase`2.CompleteEvent">
+            <summary>
+            完成事件
+            <remarks>无论是同步、线程、委托方式执行，或是否出现异常错误，都将通过该事件通知执行结果</remarks>
+            </summary>
+        </member>
+        <member name="P:Common.Business.BusinessBase`2.ResultObject">
+            <summary>
+            结果对象
+            <remarks>该属性只读</remarks>
+            </summary>
+        </member>
+        <member name="P:Common.Business.BusinessBase`2.ExecuteTimeLength">
+            <summary>
+            执行时间长度（毫秒）
+            </summary>
+        </member>
+        <member name="T:Common.Business.BusinessBase`2.RealizeBusinessHandle">
+            <summary>
+            实现业务委托（在使用AsyncStartExecute时使用）
+            <remarks>如果在具体业务实现过程中，需要采用异步委托方式实现，可直接使用该委托</remarks>
+            </summary>
+        </member>
+        <member name="T:Common.Business.BusinessBase`2.ErrorHandle">
+            <summary>
+            错误事件委托
+            </summary>
+            <param name="sender">事件触发对象</param>
+            <param name="args">参数</param>
+        </member>
+        <member name="T:Common.Business.BusinessBase`2.MessageHandle">
+            <summary>
+            消息事件委托
+            </summary>
+            <param name="sender">事件触发对象</param>
+            <param name="args">参数</param>
+        </member>
+        <member name="T:Common.Business.BusinessBase`2.CompleteHandle">
+            <summary>
+            完成事件委托
+            </summary>
+            <param name="sender">事件触发对象</param>
+            <param name="args">参数</param>
+        </member>
+        <member name="T:Common.Business.ArgBase">
+            <summary>
+            消息基类
+            </summary>
+        </member>
+        <member name="F:Common.Business.ArgBase.message">
+            <summary>
+            消息
+            </summary>
+        </member>
+        <member name="F:Common.Business.ArgBase.argObject">
+            <summary>
+            参数对象
+            </summary>
+        </member>
+        <member name="P:Common.Business.ArgBase.Message">
+            <summary>
+            消息
+            </summary>
+        </member>
+        <member name="P:Common.Business.ArgBase.ArgObject">
+            <summary>
+            参数对象
+            </summary>
+        </member>
+        <member name="T:Common.Business.ErrorArg">
+            <summary>
+            错误事件参数
+            </summary>
+        </member>
+        <member name="F:Common.Business.ErrorArg.errorDetail">
+            <summary>
+            错误消息
+            </summary>
+        </member>
+        <member name="P:Common.Business.ErrorArg.ErrorDetail">
+            <summary>
+            错误详细
+            </summary>
+        </member>
+        <member name="T:Common.Business.MessageArg">
+            <summary>
+            消息事件参数
+            </summary>
+        </member>
+        <member name="F:Common.Business.MessageArg.messageDetail">
+            <summary>
+            消息详细
+            </summary>
+        </member>
+        <member name="P:Common.Business.MessageArg.MessageDetail">
+            <summary>
+            消息详细
+            </summary>
+        </member>
+        <member name="T:Common.Business.CompleteArg">
+            <summary>
+            完成事件参数
+            </summary>
+        </member>
+        <member name="T:Common.Business.CachePool`2">
+            <summary>
+            缓存池基类
+            <remarks>
+            该基类采用数据分块缓存机制。以数据字典形式，按每块固定大小进行存储，并且每一块中又以Key-Value格式再次细分存储。
+            1.该类对外公开五个属性，使用时，通过对外公开属性获取缓存数据
+            2.该类有三个抽象方法，使用时，请先重写，实现具体的执行业务
+            3.该类使，通过调用初始化方法InitCachePool方法，传入缓存参数后，开启缓存池
+            </remarks>
+            </summary>
+            <typeparam name="T">需要缓存的数据类型，仅限于引用类型</typeparam>
+            <typeparam name="I">缓存数据项的Key值类型</typeparam>
+        </member>
+        <member name="F:Common.Business.CachePool`2.cacheParameter">
+            <summary>
+            缓存参数
+            </summary>
+        </member>
+        <member name="F:Common.Business.CachePool`2.totalCount">
+            <summary>
+            总数大小
+            <remarks>调用InitGetDataTotalCount方法获取到的值，仅限于计算使用，与实际缓存中的总数据量可能存在差异</remarks>
+            </summary>
+        </member>
+        <member name="F:Common.Business.CachePool`2.totalPieceCount">
+            <summary>
+            总块数
+            <remarks>在进行全量更新时，通过计算得出，仅限于计算使用，与实际缓存中的总块数可能存在差异</remarks>
+            </summary>
+        </member>
+        <member name="F:Common.Business.CachePool`2.cacheLock">
+            <summary>
+            缓存锁对象
+            </summary>
+        </member>
+        <member name="F:Common.Business.CachePool`2.updateCacheFlag">
+            <summary>
+            更新缓存标签
+            </summary>
+        </member>
+        <member name="F:Common.Business.CachePool`2.cacheDataDic">
+            <summary>
+            缓存数据字典
+            </summary>
+        </member>
+        <member name="F:Common.Business.CachePool`2.spikeUpdateThread">
+            <summary>
+            增量更新线程
+            </summary>
+        </member>
+        <member name="F:Common.Business.CachePool`2.fullUpdateThread">
+            <summary>
+            全量更新线程
+            </summary>
+        </member>
+        <member name="M:Common.Business.CachePool`2.#ctor">
+            <summary>
+            缓存池基类
+            <remarks>
+            该基类采用数据分块缓存机制。以数据字典形式，按每块固定大小进行存储，并且每一块中又以Key-Value格式再次细分存储。
+            1.该类对外公开五个属性，使用时，通过对外公开属性获取缓存数据
+            2.该类有三个抽象方法，使用时，请先重写，实现具体的执行业务
+            3.该类使，通过调用初始化方法InitCachePool方法，传入缓存参数后，开启缓存池
+            </remarks>
+            </summary>
+        </member>
+        <member name="M:Common.Business.CachePool`2.InitCachePool(Common.Business.CacheParameter)">
+            <summary>
+            初始化缓存
+            </summary>
+            <param name="parameter">缓存参数</param>
+        </member>
+        <member name="M:Common.Business.CachePool`2.RefeshCachePool">
+            <summary>
+            刷新缓存池
+            <remarks>立即执行一次全量更新</remarks>
+            </summary>
+        </member>
+        <member name="M:Common.Business.CachePool`2.InitPoolData">
+            <summary>
+            初始化缓存数据
+            </summary>
+        </member>
+        <member name="M:Common.Business.CachePool`2.StartSpikeUpdate">
+            <summary>
+            开始增量更新
+            </summary>
+        </member>
+        <member name="M:Common.Business.CachePool`2.StartFullUpdate">
+            <summary>
+            开始全量更新
+            </summary>
+        </member>
+        <member name="M:Common.Business.CachePool`2.UpdateCacheDataItem(System.Collections.Generic.KeyValuePair{`1,`0},System.Collections.Generic.Dictionary{`1,System.Int32},System.Collections.Generic.List{System.Collections.Generic.KeyValuePair{System.Int32,System.Int32}})">
+            <summary>
+            更新缓存数据
+            </summary>
+            <param name="dataItem">需要更新的数据项</param>
+            <param name="itemKeys">数据项Key值与数据块Key值的对应字段</param>
+            <param name="pieceCountList">数据块数量集合</param>
+        </member>
+        <member name="M:Common.Business.CachePool`2.DeleteCacheDataItem(System.Collections.Generic.KeyValuePair{`1,`0},System.Collections.Generic.Dictionary{`1,System.Int32})">
+            <summary>
+            删除缓存数据
+            </summary>
+            <param name="dataItem">需要删除的数据项</param>
+            <param name="itemKeys">数据项Key值与数据块Key值的对应字段</param>
+        </member>
+        <member name="M:Common.Business.CachePool`2.ResetCacheDataStatus">
+            <summary>
+            重置缓存数据状态
+            </summary>
+        </member>
+        <member name="M:Common.Business.CachePool`2.InitGetPieceData(System.Int32,System.Int32)">
+            <summary>
+            初始化获取块数据
+            <remarks>获取每一块数据。缓存初始化方法InitCachePool将获取到数据总数后，通过计算进行分块处理。以线程池方法分配给每一块一个线程，然后由线程池统一管理进行调用处理。</remarks>
+            <![CDATA[pieceSize:分块获取数据时，返回的数据不得超过该数字;pieceNum:分块获取数据时，表示当前块的编号，该编号具有唯一性]]>
+            </summary>
+            <example>例如MySql或SqlServer的分页查询</example>
+            <param name="pieceSize">每一块的数据大小</param>
+            <param name="pieceNum">数据块编号</param>
+            <returns>每一块的数据大小，抛出Key-Value格式的数据字典。其中Key值为数据的唯一标志，比如数据表中的主键、具有唯一性的索引等,Value为具体的数据内容，比如自定义的class数据对象</returns>
+        </member>
+        <member name="M:Common.Business.CachePool`2.InitGetDataTotalCount">
+            <summary>
+            初始化获取数据的总数大小
+            <remarks>实现该抽象方法，返回数据总数（该方法在初始化及后面的全量缓存更新时都会调用）。</remarks>
+            <example>例如MySql或SqlServer查询数据总数后进行抛出</example>
+            </summary>
+            <returns>总的数据量</returns>
+        </member>
+        <member name="M:Common.Business.CachePool`2.GetUpdateCacheData(System.Collections.Generic.Dictionary{`1,`0}@,System.Collections.Generic.Dictionary{`1,`0}@)">
+            <summary>
+            获取更新缓存数据
+            </summary>
+            <remarks>在进行缓存的增量更新时，需要调用该方法。实现该方法，ref具体需要更新的数据，如果有需要从缓存中移除的数据，请一并ref。基类将通过该方法的数据指定到具体的缓存块中的项进行单点操作。</remarks>
+            <param name="updateDatas">需要更新数据</param>
+            <param name="deleteDatas">需要删除的数据</param>
+        </member>
+        <member name="P:Common.Business.CachePool`2.CachePieceDic">
+            <summary>
+            缓存数据
+            <remarks>缓存数据的分片存储字典格式（该缓存格式为缓存的原本存储格式），该属性为只读</remarks>
+            </summary>
+        </member>
+        <member name="P:Common.Business.CachePool`2.CacheDataDic">
+            <summary>
+            缓存数据
+            <remarks>缓存数据的数据字典格式（使用该属性时，内部实时进行数据格式的转换），该属性为只读</remarks>
+            </summary>
+        </member>
+        <member name="P:Common.Business.CachePool`2.CacheDataList">
+            <summary>
+            缓存数据
+            <remarks>缓存数据的集合格式（使用该属性时，内部实时进行数据格式的转换），该属性为只读</remarks>
+            </summary>
+        </member>
+        <member name="P:Common.Business.CachePool`2.ItemKeyOfPieceKey">
+            <summary>
+            数据项Key值关于数据块Key值的字典
+            <remarks>Key值：数据项中的唯一标志，Value值：分块缓存的数据中块的编号</remarks>
+            </summary>
+        </member>
+        <member name="P:Common.Business.CachePool`2.PieceKeyOfPieceCount">
+            <summary>
+            数据块Key值对应每一块数据集中的数据量
+            <remarks>Key值：缓存的数据中块的编号，Value值：每一块数据的个数</remarks>
+            </summary>
+        </member>
+        <member name="T:Common.Business.CacheParameter">
+            <summary>
+            缓存参数
+            </summary>
+        </member>
+        <member name="F:Common.Business.CacheParameter.pieceSize">
+            <summary>
+            块大小
+            <remarks>缓存块每一块缓存的数据大小</remarks>
+            </summary>
+        </member>
+        <member name="F:Common.Business.CacheParameter.spikeUpdateFrequency">
+            <summary>
+            增量更新频率
+            </summary>
+        </member>
+        <member name="F:Common.Business.CacheParameter.fullUpdateFrequency">
+            <summary>
+            全量更新频率
+            </summary>
+        </member>
+        <member name="M:Common.Business.CacheParameter.#ctor">
+            <summary>
+            缓存的参数对象
+            <remarks>才初始化缓存类时，需要传入必要的参数信息</remarks>
+            </summary>
+        </member>
+        <member name="P:Common.Business.CacheParameter.PieceSize">
+            <summary>
+            块大小
+            <remarks>缓存块每一块缓存的数据大小，默认值为500。为保证高效的数据检索，每块的数据不宜太大。</remarks>
+            <example>例如500，表示缓存对象中每一块的大小不超过500，即以500为一块进行数据拆分存储</example>
+            </summary>
+        </member>
+        <member name="P:Common.Business.CacheParameter.SpikeUpdateFrequency">
+            <summary>
+            增量更新频率(秒)
+            <remarks>到达间隔时间后，基类中开启的增量更新线程将执行缓存增量更新操作，默认值120秒</remarks>
+            </summary>
+        </member>
+        <member name="P:Common.Business.CacheParameter.FullUpdateFrequency">
+            <summary>
+            全量更新频率(秒)
+            <remarks>到达间隔时间后，基类中开启的全量更新线程将执行全量更新操作，默认值600秒</remarks>
+            </summary>
+        </member>
+        <member name="T:Common.Business.CacheItemObject`2">
+            <summary>
+            缓存项数据类
+            </summary>
+            <typeparam name="T">元素数据类型</typeparam>
+        </member>
+        <member name="F:Common.Business.CacheItemObject`2.lockObjet">
+            <summary>
+            锁定对象
+            </summary>
+        </member>
+        <member name="F:Common.Business.CacheItemObject`2.dataItem">
+            <summary>
+            数据项
+            </summary>
+        </member>
+        <member name="F:Common.Business.CacheItemObject`2.itemKey">
+            <summary>
+            数据项Key值
+            </summary>
+        </member>
+        <member name="F:Common.Business.CacheItemObject`2.pieceKey">
+            <summary>
+            所在块Key值
+            </summary>
+        </member>
+        <member name="F:Common.Business.CacheItemObject`2.itemStatus">
+            <summary>
+            缓存数据项状态
+            </summary>
+        </member>
+        <member name="F:Common.Business.CacheItemObject`2.isLock">
+            <summary>
+            是否锁定
+            </summary>
+        </member>
+        <member name="M:Common.Business.CacheItemObject`2.#ctor">
+            <summary>
+            缓存项数据
+            <remarks>分片数据存储中的数据项类型</remarks>
+            </summary>
+        </member>
+        <member name="P:Common.Business.CacheItemObject`2.DataItem">
+            <summary>
+            数据项
+            </summary>
+        </member>
+        <member name="P:Common.Business.CacheItemObject`2.ItemKey">
+            <summary>
+            数据项Key值
+            </summary>
+        </member>
+        <member name="P:Common.Business.CacheItemObject`2.PieceKey">
+            <summary>
+            所在块Key值
+            </summary>
+        </member>
+        <member name="P:Common.Business.CacheItemObject`2.ItemStatus">
+            <summary>
+            缓存数据项状态
+            </summary>
+        </member>
+        <member name="P:Common.Business.CacheItemObject`2.IsLock">
+            <summary>
+            是否锁定
+            </summary>
+        </member>
+        <member name="T:Common.Business.CacheItemStatusEnum">
+            <summary>
+            缓存项状态枚举
+            <remarks>该枚举用以缓存项数据更新时控制</remarks>
+            </summary>
+        </member>
+        <member name="F:Common.Business.CacheItemStatusEnum.Updating">
+            <summary>
+            正在更新
+            </summary>
+        </member>
+        <member name="F:Common.Business.CacheItemStatusEnum.Updated">
+            <summary>
+            已更新
+            </summary>
+        </member>
+        <member name="F:Common.Business.CacheItemStatusEnum.Normal">
+            <summary>
+            正常
+            </summary>
+        </member>
+        <member name="T:Common.Business.CThreadPoolBase`2">
+            <summary>
+            自定义线程池基类(多线程方式)
+            <remarks>内部以多线程方式执行，调用时，通过构造函数传入参数asyncThreadCount控制同时开启的线程数</remarks>
+            </summary>
+            <typeparam name="I">传入集合参数的类型</typeparam>
+            <typeparam name="R">返回集合参数的类型（如果不需要返回结果，请使用string类型）</typeparam>
+        </member>
+        <member name="F:Common.Business.CThreadPoolBase`2.autoResetEvent">
+            <summary>
+            线程等待事件
+            </summary>
+        </member>
+        <member name="F:Common.Business.CThreadPoolBase`2.asyncThreadCount">
+            <summary>
+            线程并发数
+            </summary>
+        </member>
+        <member name="F:Common.Business.CThreadPoolBase`2.totalThreadCount">
+            <summary>
+            总线程数
+            </summary>
+        </member>
+        <member name="F:Common.Business.CThreadPoolBase`2.currentThreadCount">
+            <summary>
+            当前线程数
+            </summary>
+        </member>
+        <member name="M:Common.Business.CThreadPoolBase`2.#ctor(System.Int32)">
+            <summary>
+            自定义线程池基类
+            <remarks>自定义线程池基类，需要实现类继承该类，并实现业务方法</remarks>
+            </summary>
+            <param name="asyncThreadCount">同步执行的线程个数（并发数）</param>
+        </member>
+        <member name="M:Common.Business.CThreadPoolBase`2.ExecuteQueueItems(System.Collections.Generic.List{`0})">
+            <summary>
+            执行队列
+            <remarks>要得到执行队列的最终结果，请实现抽象方法ThreadBusiness</remarks>
+            </summary>
+            <param name="dataItems">需要执行的队列数据</param>
+        </member>
+        <member name="M:Common.Business.CThreadPoolBase`2.SyncStartExecute">
+            <summary>
+            同步开始执行
+            <remarks>多线程执行时，该方法不可用</remarks>
+            </summary>
+        </member>
+        <member name="M:Common.Business.CThreadPoolBase`2.AsyncStartExecute">
+            <summary>
+            异步开始执行
+            <remarks>多线程执行时，该方法不可用</remarks>
+            </summary>
+        </member>
+        <member name="M:Common.Business.CThreadPoolBase`2.ThreadStartExecute(System.Boolean,System.Threading.ThreadPriority)">
+            <summary>
+            异步开始执行
+            <remarks>多线程执行时，该方法不可用</remarks>
+            </summary>
+        </member>
+        <member name="M:Common.Business.CThreadPoolBase`2.ThreadBusiness(`0)">
+            <summary>
+            线程业务实现方法
+            <remarks>业务实现执行结果类型为R，请将执行结果添加到对外公开属性ResultObject，否则无法获取最终执行结果</remarks>
+            </summary>
+            <param name="queueParameter">队列执行参数</param>
+        </member>
+        <member name="M:Common.Business.CThreadPoolBase`2.RealizeBusiness(`0)">
+            <summary>
+            实现业务方法
+            <remarks>该方法废弃</remarks>
+            </summary>
+            <param name="parameter">参数</param>
+        </member>
+        <member name="M:Common.Business.CThreadPoolBase`2.ExecuteThread(`0)">
+            <summary>
+            开始执行线程
+            </summary>
+        </member>
+        <member name="P:Common.Business.CThreadPoolBase`2.resultObject">
+            <summary>
+            结果对象
+            <remarks>在具体业务实现方法RealizeBusiness实现过程中，如果需要返回值，请赋值给该变量，对外可通过只读属性ResultObject获取</remarks>
+            </summary>
+        </member>
+        <member name="E:Common.Business.CThreadPoolBase`2.ErrorEvent">
+            <summary>
+            错误事件
+            <remarks>在业务执行过程中，出现异常错误时，将采用该事件通知。在具体的业务实现方法RealizeBusiness，可根据业务需要触发该事件。注：如果出现错误或异常，继承该基类后将不会抛出异常</remarks>
+            </summary>
+        </member>
+        <member name="E:Common.Business.CThreadPoolBase`2.MessageEvent">
+            <summary>
+            消息事件
+            <remarks>在具体业务实现时，需要对外进行业务进度执行消息通知，可自定义调用该事件实现</remarks>
+            </summary>
+        </member>
+        <member name="E:Common.Business.CThreadPoolBase`2.CompleteEvent">
+            <summary>
+            完成事件
+            <remarks>无论是同步、线程、委托方式执行，或是否出现异常错误，都将通过该事件通知执行结果</remarks>
+            </summary>
+        </member>
+        <member name="P:Common.Business.CThreadPoolBase`2.ResultObject">
+            <summary>
+            返回结果数据
+            <remarks>在实现抽象方法ThreadBusiness中，将业务执行结果添加到ResultObject属性集合中</remarks>
+            </summary>
+        </member>
+        <member name="T:Common.Business.ThreadPoolBase`2">
+            <summary>
+            线程池执行基类
+            <remarks>以线程池方式实现并发。继承该类前，请先通过System.Threading.ThreadPool的SetMaxThreads，SetMinThreads设置工作线程</remarks>
+            </summary>
+            <typeparam name="I">传入集合参数的类型(只能是引用类型)</typeparam>
+            <typeparam name="R">返回集合参数的类型（如果不需要返回结果，请使用string类型）</typeparam>
+        </member>
+        <member name="F:Common.Business.ThreadPoolBase`2.autoResetEvent">
+            <summary>
+            线程等待事件
+            </summary>
+        </member>
+        <member name="F:Common.Business.ThreadPoolBase`2.threadCount">
+            <summary>
+            线程数
+            </summary>
+        </member>
+        <member name="M:Common.Business.ThreadPoolBase`2.#ctor">
+            <summary>
+            线程池执行基类
+            <remarks>线程池执行的基类，需要实现类继承该类，并实现业务方法</remarks>
+            </summary>
+        </member>
+        <member name="M:Common.Business.ThreadPoolBase`2.ExecuteQueueItems(System.Collections.Generic.List{`0})">
+            <summary>
+            执行队列
+            <remarks>要得到执行队列的最终结果，请实现抽象方法ThreadBusiness</remarks>
+            </summary>
+            <param name="dataItems">需要执行的队列数据</param>
+        </member>
+        <member name="M:Common.Business.ThreadPoolBase`2.SyncStartExecute">
+            <summary>
+            同步开始执行
+            <remarks>多线程执行时，该方法不可用</remarks>
+            </summary>
+        </member>
+        <member name="M:Common.Business.ThreadPoolBase`2.AsyncStartExecute">
+            <summary>
+            异步开始执行
+            <remarks>多线程执行时，该方法不可用</remarks>
+            </summary>
+        </member>
+        <member name="M:Common.Business.ThreadPoolBase`2.ThreadStartExecute(System.Boolean,System.Threading.ThreadPriority)">
+            <summary>
+            异步开始执行
+            <remarks>多线程执行时，该方法不可用</remarks>
+            </summary>
+        </member>
+        <member name="M:Common.Business.ThreadPoolBase`2.ThreadBusiness(`0)">
+            <summary>
+            线程业务实现方法
+            <remarks>业务实现执行结果类型为R，请将执行结果添加到对外公开属性ResultObject，否则无法获取最终执行结果</remarks>
+            </summary>
+            <param name="parameter">队列执行参数</param>
+        </member>
+        <member name="M:Common.Business.ThreadPoolBase`2.RealizeBusiness(`0)">
+            <summary>
+            实现业务方法
+            <remarks>该方法废弃</remarks>
+            </summary>
+            <param name="parameter">参数</param>
+        </member>
+        <member name="P:Common.Business.ThreadPoolBase`2.resultObject">
+            <summary>
+            结果对象
+            <remarks>在具体业务实现方法RealizeBusiness实现过程中，如果需要返回值，请赋值给该变量，对外可通过只读属性ResultObject获取</remarks>
+            </summary>
+        </member>
+        <member name="E:Common.Business.ThreadPoolBase`2.ErrorEvent">
+            <summary>
+            错误事件
+            <remarks>在业务执行过程中，出现异常错误时，将采用该事件通知。在具体的业务实现方法RealizeBusiness，可根据业务需要触发该事件。注：如果出现错误或异常，继承该基类后将不会抛出异常</remarks>
+            </summary>
+        </member>
+        <member name="E:Common.Business.ThreadPoolBase`2.MessageEvent">
+            <summary>
+            消息事件
+            <remarks>在具体业务实现时，需要对外进行业务进度执行消息通知，可自定义调用该事件实现</remarks>
+            </summary>
+        </member>
+        <member name="E:Common.Business.ThreadPoolBase`2.CompleteEvent">
+            <summary>
+            完成事件
+            <remarks>无论是同步、线程、委托方式执行，或是否出现异常错误，都将通过该事件通知执行结果</remarks>
+            </summary>
+        </member>
+        <member name="P:Common.Business.ThreadPoolBase`2.ResultObject">
+            <summary>
+            返回结果数据
+            <remarks>在实现抽象方法ThreadBusiness中，将业务执行结果添加到ResultObject属性集合中</remarks>
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{803679DA-FBE7-4C36-B76F-90A748648885}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tzq.WeChatService.Buiness</RootNamespace>
+    <AssemblyName>Tzq.WeChatService.Buiness</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Better.SecurityUtility">
+      <HintPath>..\PublicDll\Better.SecurityUtility.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.DBUtility">
+      <HintPath>..\PublicDll\Common.DBUtility.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.TxtLog">
+      <HintPath>..\PublicDll\Common.TxtLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\PublicDll\Newtonsoft.Json.4.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApiAccessTokenManager.cs" />
+    <Compile Include="ApiClient.cs" />
+    <Compile Include="ApiRequests\AccessTokenRequest.cs" />
+    <Compile Include="ApiRequests\ApiRequestBase.cs" />
+    <Compile Include="ApiRequests\CreateMenuRequest.cs" />
+    <Compile Include="ApiRequests\CreateQrcodeRequest.cs" />
+    <Compile Include="ApiRequests\GetTicketRequest.cs" />
+    <Compile Include="ApiRequests\GroupsCreateRequest.cs" />
+    <Compile Include="ApiRequests\GroupsGetIdRequest.cs" />
+    <Compile Include="ApiRequests\GroupsMembersUpdateRequest.cs" />
+    <Compile Include="ApiRequests\GroupsQueryRequest.cs" />
+    <Compile Include="ApiRequests\GroupsUpdateRequest.cs" />
+    <Compile Include="ApiRequests\MediaUploadRequest.cs" />
+    <Compile Include="ApiRequests\MessageMassSendbyOpenIDRequest.cs" />
+    <Compile Include="ApiRequests\SnsOAuthAccessTokenRequest.cs" />
+    <Compile Include="ApiRequests\SnsOauthRefreshTokenRequest.cs" />
+    <Compile Include="ApiRequests\SnsUserInfoRequest.cs" />
+    <Compile Include="ApiRequests\UploadImageRequest.cs" />
+    <Compile Include="ApiRequests\UploadNewsRequest.cs" />
+    <Compile Include="ApiRequests\UserInfoRequest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tzq.WeChatService.Common\Tzq.WeChatService.Common.csproj">
+      <Project>{d5cff8af-49fb-4ed4-b2a8-f38fd369bee7}</Project>
+      <Name>Tzq.WeChatService.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tzq.WeChatService.DalBusiness\Tzq.WeChatService.DalBusiness.csproj">
+      <Project>{c98f23d4-52e3-48e5-89fa-ac7c1f41fe2c}</Project>
+      <Name>Tzq.WeChatService.DalBusiness</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tzq.WeChatService.Factory\Tzq.WeChatService.Factory.csproj">
+      <Project>{15740cb4-7fe3-4994-9ef9-5f1149cbe38e}</Project>
+      <Name>Tzq.WeChatService.Factory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tzq.WeChatService.Model\Tzq.WeChatService.Model.csproj">
+      <Project>{02e3bd46-7d79-4e73-8893-7f5155ef3d94}</Project>
+      <Name>Tzq.WeChatService.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

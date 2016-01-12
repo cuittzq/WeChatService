@@ -1,0 +1,528 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Common.DBUtility</name>
+    </assembly>
+    <members>
+        <member name="T:Common.DBUtility.ConvertTool">
+            <summary>
+            转换类
+            </summary>
+        </member>
+        <member name="M:Common.DBUtility.ConvertTool.DataSetToList``1(System.Data.DataSet)">
+            <summary>
+            DataSet转换为ListT
+            </summary>
+            <typeparam name="T">实体类</typeparam>
+            <param name="ds">ds</param>
+            <returns>listT</returns>
+        </member>
+        <member name="T:Common.DBUtility.DbTransaction">
+            <summary>
+            数据库事务处理基类,对数据库提供统一管理
+            </summary>
+        </member>
+        <member name="F:Common.DBUtility.DbTransaction.transaction">
+            <summary>
+            IDbTransaction 事务对象
+            </summary>
+        </member>
+        <member name="F:Common.DBUtility.DbTransaction.connection">
+            <summary>
+            IDbConnection 连接对象
+            </summary>
+        </member>
+        <member name="F:Common.DBUtility.DbTransaction.isBeginTransaction">
+            <summary>
+            是否启数据库动事务（IDbConnection.BeginTransaction）
+            </summary>
+        </member>
+        <member name="F:Common.DBUtility.DbTransaction.isolationLevel">
+            <summary>
+            Transaction 事务隔离级别
+            </summary>
+        </member>
+        <member name="M:Common.DBUtility.DbTransaction.#ctor">
+            <summary>
+            无参数构造函数(初始化TransaionBase)
+            </summary>
+        </member>
+        <member name="M:Common.DBUtility.DbTransaction.#ctor(System.Data.IDbConnection)">
+            <summary>
+            构造函数，提供DbConnection 连接对象
+            </summary>
+            <param name="conn">IDbConnection 连接对象</param>
+        </member>
+        <member name="M:Common.DBUtility.DbTransaction.Execute">
+            <summary>
+            执行（Execute）
+            </summary>
+        </member>
+        <member name="M:Common.DBUtility.DbTransaction.ExecuteMethods">
+            <summary>
+            ExecuteMethods业务处理函数
+            </summary>
+        </member>
+        <member name="M:Common.DBUtility.DbTransaction.Committed">
+            <summary>
+            事务提交后处理动作，如果不要求开启事物(isBeginTransaction=false)将不会执行此方法
+            </summary>
+        </member>
+        <member name="M:Common.DBUtility.DbTransaction.Rollbacked">
+            <summary>
+            事务回滚后处理动作，如果不要求开启事物(isBeginTransaction=false)将不会执行此方法
+            </summary>
+        </member>
+        <member name="M:Common.DBUtility.DbTransaction.PreTransactionBegin">
+            <summary>
+            开启事务（BeginTransaction）之前执行的方法，如果不要求开启事物(isBeginTransaction=false)将不会执行此方法
+            </summary>
+        </member>
+        <member name="P:Common.DBUtility.DbTransaction.Transaction">
+            <summary>
+            获得或者设置 IDbTransaction 事务对象
+            </summary>
+        </member>
+        <member name="P:Common.DBUtility.DbTransaction.Connection">
+            <summary>
+            IDbConnection 连接对象
+            </summary>
+        </member>
+        <member name="P:Common.DBUtility.DbTransaction.IsBeginTransaction">
+            <summary>
+            是否启数据库动事务（IDbConnection.BeginTransaction）
+            </summary>
+        </member>
+        <member name="P:Common.DBUtility.DbTransaction.IsolationLevel">
+            <summary>
+            Transaction 事务隔离级别
+            </summary>
+        </member>
+        <member name="T:Common.DBUtility.MSSqlHelper">
+            <summary>
+            <para>数据操作辅助类</para>
+            <para>注意：使用完SqlConnection、SqlTransaction、SqlDataReader等对象后应及时释放资源</para>
+            </summary>
+        </member>
+        <member name="M:Common.DBUtility.MSSqlHelper.ExecuteScalar(System.Data.SqlClient.SqlTransaction,System.Data.SqlClient.SqlConnection,System.String)">
+            <summary>
+            执行SQL获得首行首列
+            </summary>
+            <param name="trans">SqlTransaction对象</param> 
+            <param name="sqlConnection">SqlConnection对象，使用事务时候可不传递</param>
+            <param name="sqlString">SQL脚本(sqltext)</param>
+            <returns>执行SQL，首行首列数据值</returns>
+        </member>
+        <member name="M:Common.DBUtility.MSSqlHelper.ExecuteScalar(System.Data.SqlClient.SqlTransaction,System.Data.SqlClient.SqlConnection,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行SQL获得首行首列
+            </summary>
+            <param name="trans">SqlTransaction对象</param> 
+            <param name="sqlConnection">SqlConnection对象，使用事务时候可不传递</param>
+            <param name="sqlString">SQL脚本（sqltext）</param>
+            <param name="sqlParms">SqlParameter参数集合</param>
+            <returns>执行SQL，首行首列数据值</returns>
+        </member>
+        <member name="M:Common.DBUtility.MSSqlHelper.RunProcedureScalar(System.Data.SqlClient.SqlConnection,System.String)">
+            <summary>
+            执行存储过程获得首行首列数据
+            </summary>
+            <param name="sqlConnection">SqlConnection数据库连接对象</param>
+            <param name="sqlProcedureName">存储过程名称（ProcedureName）</param>
+            <returns>执行存储过程后获得首行首列数据</returns>
+        </member>
+        <member name="M:Common.DBUtility.MSSqlHelper.RunProcedureScalar(System.Data.SqlClient.SqlConnection,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行存储过程获得首行首列
+            </summary>
+            <param name="sqlConnection">SqlConnection 对象</param>
+            <param name="sqlProcedureName">存储过程名称（ProcedureName）</param>
+            <param name="sqlParms">SqlParameter参数集合</param>
+            <returns>执行存储过程后获得首行首列数据</returns>
+        </member>
+        <member name="M:Common.DBUtility.MSSqlHelper.RunProcedureScalar(System.Data.SqlClient.SqlTransaction,System.Data.SqlClient.SqlConnection,System.String)">
+            <summary>
+            执行存储过程获得首行首列数据
+            </summary>
+            <param name="trans">事务对象</param>
+            <param name="sqlConnection">SqlConnection数据库连接对象</param>
+            <param name="sqlProcedureName">存储过程名称（ProcedureName）</param>
+            <returns>执行存储过程后获得首行首列数据</returns>
+        </member>
+        <member name="M:Common.DBUtility.MSSqlHelper.RunProcedureScalar(System.Data.SqlClient.SqlTransaction,System.Data.SqlClient.SqlConnection,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行存储过程获得首行首列
+            </summary>
+            <param name="trans">事务对象</param>
+            <param name="sqlConnection">连接对象</param>
+            <param name="sqlProcedureName">存储过程名称（ProcedureName）</param>
+            <param name="sqlParms">SqlParameter参数集合</param>
+            <returns>执行存储过程后获得首行首列数据</returns>
+        </member>
+        <member name="M:Common.DBUtility.MSSqlHelper.ExecuteSql(System.Data.SqlClient.SqlTransaction,System.Data.SqlClient.SqlConnection,System.String)">
+            <summary>
+            执行SQL脚本返回影响的行数
+            </summary>
+            <param name="trans">SqlTransaction 对象</param> 
+            <param name="sqlConnection">SqlConnection对象，使用事务时候可不传递</param>
+            <param name="sqlString">SQL脚本(sqltext)</param>
+            <returns>执行SQL脚本影响的行数</returns>
+        </member>
+        <member name="M:Common.DBUtility.MSSqlHelper.ExecuteSql(System.Data.SqlClient.SqlTransaction,System.Data.SqlClient.SqlConnection,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行SQL脚本返回影响的行数
+            </summary>
+            <param name="trans">SqlTransaction 对象</param> 
+            <param name="sqlConnection">SqlConnection对象，使用事务时候可不传递</param>
+            <param name="sqlString">SQL脚本(sqltext)</param>
+            <param name="sqlParms">SqlParameter参数集合</param>
+            <returns>执行SQL脚本影响的行数</returns>
+        </member>
+        <member name="M:Common.DBUtility.MSSqlHelper.RunProcedure(System.Data.SqlClient.SqlConnection,System.String)">
+            <summary>
+            执行存储过程返回受影响的行数
+            </summary>
+            <param name="sqlConnection">SqlConnection 对象</param>
+            <param name="sqlProcedureName">存储过程名称（ProcedureName）</param>
+            <returns>执行SQL脚本影响的行数</returns>
+        </member>
+        <member name="M:Common.DBUtility.MSSqlHelper.RunProcedure(System.Data.SqlClient.SqlConnection,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行存储过程返回受影响的行数
+            </summary>
+            <param name="sqlConnection">SqlConnection 对象</param>
+            <param name="sqlProcedureName">存储过程名称（ProcedureName）</param>
+            <param name="sqlParms">SqlParameter对象集合</param>
+            <returns>执行SQL脚本影响的行数</returns>
+        </member>
+        <member name="M:Common.DBUtility.MSSqlHelper.ExecuteReader(System.Data.SqlClient.SqlTransaction,System.Data.SqlClient.SqlConnection,System.String)">
+            <summary>
+            执行Sql脚本返回 SqlDataReader
+            </summary>
+            <param name="trans">SqlTransaction 对象</param>
+            <param name="sqlConnection">SqlConnection对象，使用事务时候可不传递</param>
+            <param name="sqlString">Sql脚本（sqltext）</param>
+            <returns>执行Sql数据库脚本，返回 SqlDataReader</returns>
+        </member>
+        <member name="M:Common.DBUtility.MSSqlHelper.ExecuteReader(System.Data.SqlClient.SqlTransaction,System.Data.SqlClient.SqlConnection,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行Sql脚本返回 SqlDataReader
+            </summary>
+            <param name="trans">SqlTransaction 对象</param> 
+            <param name="sqlConnection">SqlConnection对象，使用事务时候可不传递</param>
+            <param name="sqlString">Sql脚本(sqltext)</param>
+            <param name="sqlParms">SqlParameter 参数集合</param>
+            <returns>执行Sql数据库脚本，返回 SqlDataReader</returns>
+        </member>
+        <member name="M:Common.DBUtility.MSSqlHelper.RunProcedureReader(System.Data.SqlClient.SqlConnection,System.String)">
+            <summary>
+            执行存储过程返回 SqlDataReader
+            </summary>
+            <param name="sqlConnection">SqlConnection 对象</param>
+            <param name="sqlProcedureName">存储过程名称（ProcedureName）</param>
+            <returns>执行存储过程，返回 SqlDataReader 对象</returns>
+        </member>
+        <member name="M:Common.DBUtility.MSSqlHelper.RunProcedureReader(System.Data.SqlClient.SqlConnection,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行存储过程返回 SqlDataReader
+            </summary>
+            <param name="sqlConnection">SqlConnection 对象</param>
+            <param name="sqlProcedureName">存储过程名（ProcedureName）</param>
+            <param name="sqlParms">SqlParameter 参数集合</param>
+            <returns>执行存储过程，返回 SqlDataReader对象</returns>
+        </member>
+        <member name="M:Common.DBUtility.MSSqlHelper.Query(System.Data.SqlClient.SqlTransaction,System.Data.SqlClient.SqlConnection,System.String)">
+            <summary>
+            执行Sql脚本返回DataSet数据集合
+            </summary>
+            <param name="trans">SqlTransaction 对象</param>
+            <param name="sqlConnection">SqlConnection对象，使用事务时候可不传递</param>
+            <param name="sqlString">Sql脚本(sqltext)</param>
+            <returns>执行Sql数据库脚本，返回DataSet数据集合</returns>
+        </member>
+        <member name="M:Common.DBUtility.MSSqlHelper.Query(System.Data.SqlClient.SqlTransaction,System.Data.SqlClient.SqlConnection,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行Sql脚本返回DataSet数据集合
+            </summary>
+            <param name="trans">SqlTransaction 对象</param>
+            <param name="sqlConnection">SqlConnection对象，使用事务时候可不传递</param>
+            <param name="sqlString">Sql脚本（sqltext）</param>
+            <param name="sqlParms">SqlParameter 参数集合</param>
+            <returns>执行Sql数据库脚本，返回DataSet数据集合</returns>
+        </member>
+        <member name="M:Common.DBUtility.MSSqlHelper.RunProcedureQuery(System.Data.SqlClient.SqlConnection,System.String)">
+            <summary>
+            执行存储过程返回DataSet数据集合
+            </summary>
+            <param name="sqlConnection">SqlConnection 对象</param>
+            <param name="sqlProcedureName">存储过程名称（ProcedureName）</param>
+            <returns>执行数据库存储过程，返回DataSet数据集合</returns>
+        </member>
+        <member name="M:Common.DBUtility.MSSqlHelper.RunProcedureQuery(System.Data.SqlClient.SqlConnection,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行存储过程返回DataSet数据集合
+            </summary>
+            <param name="sqlConnection">SqlConnection对象</param>
+            <param name="sqlProcedureName">存储过程名称（ProcedureName）</param>
+            <param name="sqlParms">SqlParameter参数集合</param>
+            <returns>执行数据库存储过程，返回DataSet数据集合</returns>
+        </member>
+        <member name="M:Common.DBUtility.MSSqlHelper.RunProcedureQuery(System.Data.SqlClient.SqlTransaction,System.Data.SqlClient.SqlConnection,System.String)">
+            <summary>
+            执行存储过程返回DataSet数据集合
+            </summary>
+            <param name="trans">事务对象</param>
+            <param name="sqlConnection">SqlConnection 对象</param>
+            <param name="sqlProcedureName">存储过程名称（ProcedureName）</param>
+            <returns>执行数据库存储过程，返回DataSet数据集合</returns>
+        </member>
+        <member name="M:Common.DBUtility.MSSqlHelper.RunProcedureQuery(System.Data.SqlClient.SqlTransaction,System.Data.SqlClient.SqlConnection,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行存储过程返回DataSet数据集合
+            </summary>
+            <param name="sqlConnection">SqlConnection对象</param>
+            <param name="sqlProcedureName">存储过程名称（ProcedureName）</param>
+            <param name="sqlParms">SqlParameter参数集合</param>
+            <returns>执行数据库存储过程，返回DataSet数据集合</returns>
+        </member>
+        <member name="M:Common.DBUtility.MSSqlHelper.PrepareCommand(System.Data.SqlClient.SqlCommand,System.Data.SqlClient.SqlConnection,System.Data.SqlClient.SqlTransaction,System.String,System.Int32,System.Data.CommandType,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            设置 SqlCommand 对象属性
+            </summary>
+            <param name="cmd">SqlCommand 对象</param>
+            <param name="conn">SqlConnection 对象（连接）</param>
+            <param name="trans">SqlTransaction 对象（事务）</param>
+            <param name="cmdText">sql文本 或存储过程名称（ProcedureName）</param>
+            <param name="timeOut">SqlCommand 对象超时时间</param>
+            <param name="cmdType">SqlCommand 类型</param>
+            <param name="sqlParameter">SqlParameter（参数） 集合</param>
+        </member>
+        <member name="T:Common.DBUtility.MultiDbTransaction">
+            <summary>
+            多数据库支持事务操作类
+            </summary>
+        </member>
+        <member name="F:Common.DBUtility.MultiDbTransaction.TransactionIsolationLevel">
+            <summary>
+            事务类型，默认为未提交读
+            </summary>
+        </member>
+        <member name="F:Common.DBUtility.MultiDbTransaction.isBeginTransaction">
+            <summary>
+            是否启数据库动事务（IDbConnection.BeginTransaction）
+            </summary>
+        </member>
+        <member name="M:Common.DBUtility.MultiDbTransaction.Execute">
+            <summary>
+            执行方法
+            </summary>
+        </member>
+        <member name="M:Common.DBUtility.MultiDbTransaction.ExcuteMethods">
+            <summary>
+            抽象业务执行方法
+            </summary>
+        </member>
+        <member name="M:Common.DBUtility.MultiDbTransaction.Committed">
+            <summary>
+            事务提交后处理动作，如果不要求开启事物(isBeginTransaction=false)将不会执行此方法
+            </summary>
+        </member>
+        <member name="M:Common.DBUtility.MultiDbTransaction.AllCommitted">
+            <summary>
+            所有事务提交后处理动作,若没有开启事务，则在核心方法ExcuteMethods处理完后执行
+            </summary>
+        </member>
+        <member name="M:Common.DBUtility.MultiDbTransaction.Rollbacked">
+            <summary>
+            事务回滚后处理动作，如果不要求开启事物(isBeginTransaction=false)将不会执行此方法
+            </summary>
+        </member>
+        <member name="M:Common.DBUtility.MultiDbTransaction.AllRollbacked">
+            <summary>
+            所有事务回滚后处理动作,若没有开启事务，则在错误处理完后执行
+            </summary>
+        </member>
+        <member name="M:Common.DBUtility.MultiDbTransaction.PreTransactionBegin">
+            <summary>
+            开启事务（BeginTransaction）之前执行的方法，如果不要求开启事物(isBeginTransaction=false)将不会执行此方法
+            </summary>
+        </member>
+        <member name="P:Common.DBUtility.MultiDbTransaction.Connections">
+            <summary>
+            多连接集合
+            </summary>
+        </member>
+        <member name="P:Common.DBUtility.MultiDbTransaction.Transactions">
+            <summary>
+            对应事务集合
+            </summary>
+        </member>
+        <member name="T:Common.DBUtility.MySqlHelper">
+            <summary>
+            <para>数据操作辅助类</para>
+            <para>注意：使用完IDbConnection、IDbTransaction、MySqlDataReader等对象后应及时释放资源</para>
+            </summary>
+        </member>
+        <member name="M:Common.DBUtility.MySqlHelper.ExecuteScalar(System.Data.IDbTransaction,System.Data.IDbConnection,System.String)">
+            <summary>
+            执行SQL获得首行首列
+            </summary>
+            <param name="trans">IDbTransaction对象</param> 
+            <param name="sqlConnection">IDbConnection对象，使用事务时候可不传递</param>
+            <param name="sqlString">SQL脚本(sqltext)</param>
+            <returns>执行SQL，首行首列数据值</returns>
+        </member>
+        <member name="M:Common.DBUtility.MySqlHelper.ExecuteScalar(System.Data.IDbTransaction,System.Data.IDbConnection,System.String,MySql.Data.MySqlClient.MySqlParameter[])">
+            <summary>
+            执行SQL获得首行首列
+            </summary>
+            <param name="trans">IDbTransaction对象</param> 
+            <param name="sqlConnection">IDbConnection对象，使用事务时候可不传递</param>
+            <param name="sqlString">SQL脚本（sqltext）</param>
+            <param name="sqlParms">MySqlParameter参数集合</param>
+            <returns>执行SQL，首行首列数据值</returns>
+        </member>
+        <member name="M:Common.DBUtility.MySqlHelper.RunProcedureScalar(System.Data.IDbConnection,System.String)">
+            <summary>
+            执行存储过程获得首行首列数据
+            </summary>
+            <param name="sqlConnection">IDbConnection数据库连接对象</param>
+            <param name="sqlProcedureName">存储过程名称（ProcedureName）</param>
+            <returns>执行存储过程后获得首行首列数据</returns>
+        </member>
+        <member name="M:Common.DBUtility.MySqlHelper.RunProcedureScalar(System.Data.IDbConnection,System.String,MySql.Data.MySqlClient.MySqlParameter[])">
+            <summary>
+            执行存储过程获得首行首列
+            </summary>
+            <param name="sqlConnection">IDbConnection 对象</param>
+            <param name="sqlProcedureName">存储过程名称（ProcedureName）</param>
+            <param name="sqlParms">MySqlParameter参数集合</param>
+            <returns>执行存储过程后获得首行首列数据</returns>
+        </member>
+        <member name="M:Common.DBUtility.MySqlHelper.ExecuteSql(System.Data.IDbTransaction,System.Data.IDbConnection,System.String)">
+            <summary>
+            执行SQL脚本返回影响的行数
+            </summary>
+            <param name="trans">IDbTransaction 对象</param> 
+            <param name="sqlConnection">IDbConnection对象，使用事务时候可不传递</param>
+            <param name="sqlString">SQL脚本(sqltext)</param>
+            <returns>执行SQL脚本影响的行数</returns>
+        </member>
+        <member name="M:Common.DBUtility.MySqlHelper.ExecuteSql(System.Data.IDbTransaction,System.Data.IDbConnection,System.String,MySql.Data.MySqlClient.MySqlParameter[])">
+            <summary>
+            执行SQL脚本返回影响的行数
+            </summary>
+            <param name="trans">IDbTransaction 对象</param> 
+            <param name="sqlConnection">IDbConnection对象，使用事务时候可不传递</param>
+            <param name="sqlString">SQL脚本(sqltext)</param>
+            <param name="sqlParms">MySqlParameter参数集合</param>
+            <returns>执行SQL脚本影响的行数</returns>
+        </member>
+        <member name="M:Common.DBUtility.MySqlHelper.RunProcedure(System.Data.IDbConnection,System.String)">
+            <summary>
+            执行存储过程返回受影响的行数
+            </summary>
+            <param name="sqlConnection">IDbConnection 对象</param>
+            <param name="sqlProcedureName">存储过程名称（ProcedureName）</param>
+            <returns>执行SQL脚本影响的行数</returns>
+        </member>
+        <member name="M:Common.DBUtility.MySqlHelper.RunProcedure(System.Data.IDbConnection,System.String,MySql.Data.MySqlClient.MySqlParameter[])">
+            <summary>
+            执行存储过程返回受影响的行数
+            </summary>
+            <param name="sqlConnection">IDbConnection 对象</param>
+            <param name="sqlProcedureName">存储过程名称（ProcedureName）</param>
+            <param name="sqlParms">MySqlParameter对象集合</param>
+            <returns>执行SQL脚本影响的行数</returns>
+        </member>
+        <member name="M:Common.DBUtility.MySqlHelper.ExecuteReader(System.Data.IDbTransaction,System.Data.IDbConnection,System.String)">
+            <summary>
+            执行Sql脚本返回 MySqlDataReader
+            </summary>
+            <param name="trans">IDbTransaction 对象</param>
+            <param name="sqlConnection">IDbConnection对象，使用事务时候可不传递</param>
+            <param name="sqlString">Sql脚本（sqltext）</param>
+            <returns>执行Sql数据库脚本，返回 MySqlDataReader</returns>
+        </member>
+        <member name="M:Common.DBUtility.MySqlHelper.ExecuteReader(System.Data.IDbTransaction,System.Data.IDbConnection,System.String,MySql.Data.MySqlClient.MySqlParameter[])">
+            <summary>
+            执行Sql脚本返回 MySqlDataReader
+            </summary>
+            <param name="trans">IDbTransaction 对象</param> 
+            <param name="sqlConnection">IDbConnection对象，使用事务时候可不传递</param>
+            <param name="sqlString">Sql脚本(sqltext)</param>
+            <param name="sqlParms">MySqlParameter 参数集合</param>
+            <returns>执行Sql数据库脚本，返回 MySqlDataReader</returns>
+        </member>
+        <member name="M:Common.DBUtility.MySqlHelper.RunProcedureReader(System.Data.IDbConnection,System.String)">
+            <summary>
+            执行存储过程返回 MySqlDataReader
+            </summary>
+            <param name="sqlConnection">IDbConnection 对象</param>
+            <param name="sqlProcedureName">存储过程名称（ProcedureName）</param>
+            <returns>执行存储过程，返回 MySqlDataReader 对象</returns>
+        </member>
+        <member name="M:Common.DBUtility.MySqlHelper.RunProcedureReader(System.Data.IDbConnection,System.String,MySql.Data.MySqlClient.MySqlParameter[])">
+            <summary>
+            执行存储过程返回 MySqlDataReader
+            </summary>
+            <param name="sqlConnection">IDbConnection 对象</param>
+            <param name="sqlProcedureName">存储过程名（ProcedureName）</param>
+            <param name="sqlParms">MySqlParameter 参数集合</param>
+            <returns>执行存储过程，返回 MySqlDataReader对象</returns>
+        </member>
+        <member name="M:Common.DBUtility.MySqlHelper.Query(System.Data.IDbTransaction,System.Data.IDbConnection,System.String)">
+            <summary>
+            执行Sql脚本返回DataSet数据集合
+            </summary>
+            <param name="trans">IDbTransaction 对象</param>
+            <param name="sqlConnection">IDbConnection对象，使用事务时候可不传递</param>
+            <param name="sqlString">Sql脚本(sqltext)</param>
+            <returns>执行Sql数据库脚本，返回DataSet数据集合</returns>
+        </member>
+        <member name="M:Common.DBUtility.MySqlHelper.Query(System.Data.IDbTransaction,System.Data.IDbConnection,System.String,MySql.Data.MySqlClient.MySqlParameter[])">
+            <summary>
+            执行Sql脚本返回DataSet数据集合
+            </summary>
+            <param name="trans">IDbTransaction 对象</param>
+            <param name="sqlConnection">IDbConnection对象，使用事务时候可不传递</param>
+            <param name="sqlString">Sql脚本（sqltext）</param>
+            <param name="sqlParms">SqlParameter 参数集合</param>
+            <returns>执行Sql数据库脚本，返回DataSet数据集合</returns>
+        </member>
+        <member name="M:Common.DBUtility.MySqlHelper.RunProcedureQuery(System.Data.IDbConnection,System.String)">
+            <summary>
+            执行存储过程返回DataSet数据集合
+            </summary>
+            <param name="sqlConnection">IDbConnection 对象</param>
+            <param name="sqlProcedureName">存储过程名称（ProcedureName）</param>
+            <returns>执行数据库存储过程，返回DataSet数据集合</returns>
+        </member>
+        <member name="M:Common.DBUtility.MySqlHelper.RunProcedureQuery(System.Data.IDbConnection,System.String,MySql.Data.MySqlClient.MySqlParameter[])">
+            <summary>
+            执行存储过程返回DataSet数据集合
+            </summary>
+            <param name="sqlConnection">IDbConnection对象</param>
+            <param name="sqlProcedureName">存储过程名称（ProcedureName）</param>
+            <param name="sqlParms">SqlParameter参数集合</param>
+            <returns>执行数据库存储过程，返回DataSet数据集合</returns>
+        </member>
+        <member name="M:Common.DBUtility.MySqlHelper.PrepareCommand(MySql.Data.MySqlClient.MySqlCommand,System.Data.IDbConnection,System.Data.IDbTransaction,System.String,System.Int32,System.Data.CommandType,MySql.Data.MySqlClient.MySqlParameter[])">
+            <summary>
+            设置 MySqlCommand 对象属性
+            </summary>
+            <param name="cmd">MySqlCommand 对象</param>
+            <param name="conn">IDbConnection 对象（连接）</param>
+            <param name="trans">IDbTransaction 对象（事务）</param>
+            <param name="cmdText">sql文本 或存储过程名称（ProcedureName）</param>
+            <param name="timeOut">MySqlCommand 对象超时时间</param>
+            <param name="cmdType">MySqlCommand 类型</param>
+            <param name="sqlParameter">MySqlParameter（参数） 集合</param>
+        </member>
+        <member name="T:Common.DBUtility.MySqlParameters">
+            <summary>
+            MySql参数控制类，降低参数过多的索引访问难度
+            </summary>
+        </member>
+    </members>
+</doc>

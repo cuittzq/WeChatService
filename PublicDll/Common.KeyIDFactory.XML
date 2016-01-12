@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Common.KeyIDFactory</name>
+    </assembly>
+    <members>
+        <member name="T:Common.KeyIDFactory.DataBase">
+            <summary>
+            数据库枚举
+            </summary>
+        </member>
+        <member name="F:Common.KeyIDFactory.DataBase.ResourcesManager">
+            <summary>
+            资源管理库
+            </summary>
+        </member>
+        <member name="F:Common.KeyIDFactory.DataBase.OperationParam">
+            <summary>
+            代运营基础参数库
+            </summary>
+        </member>
+        <member name="F:Common.KeyIDFactory.DataBase.OperationBusinData">
+            <summary>
+            代运营业务数据数据库
+            </summary>
+        </member>
+        <member name="F:Common.KeyIDFactory.DataBase.PriceBusinessDB">
+            <summary>
+            价格业务数据库
+            </summary>
+        </member>
+        <member name="F:Common.KeyIDFactory.DataBase.BenefitRates">
+            <summary>
+            政策数据库
+            </summary>
+        </member>
+        <member name="F:Common.KeyIDFactory.DataBase.InterfaceBusinessDB">
+            <summary>
+            接口业务数据库
+            </summary>
+        </member>
+        <member name="F:Common.KeyIDFactory.DataBase.BenefitRatesDB">
+            <summary>
+            政策管理数据库
+            </summary>
+        </member>
+        <member name="F:Common.KeyIDFactory.DataBase.CustomerDB">
+            <summary>
+            客户信息数据库
+            </summary>
+        </member>
+        <member name="F:Common.KeyIDFactory.DataBase.OccupiedBusinessDB">
+            <summary>
+            占位业务数据库
+            </summary>
+        </member>
+        <member name="F:Common.KeyIDFactory.DataBase.FoundAtion">
+            <summary>
+            机票参数库
+            </summary>
+        </member>
+        <member name="F:Common.KeyIDFactory.DataBase.PolicyBusinessDB">
+            <summary>
+            政策业务库
+            </summary>
+        </member>
+        <member name="F:Common.KeyIDFactory.DataBase.ReceiptBusinessDB">
+            <summary>
+            行程单业务库
+            </summary>
+        </member>
+        <member name="F:Common.KeyIDFactory.DataBase.QQtyl">
+            <summary>
+            旅游基础库
+            </summary>
+        </member>
+        <member name="T:Common.KeyIDFactory.KeyIDFactory">
+            <summary>
+            主键ID工厂类
+            </summary>
+        </member>
+        <member name="F:Common.KeyIDFactory.KeyIDFactory.number">
+            <summary>
+            数字
+            </summary>
+        </member>
+        <member name="F:Common.KeyIDFactory.KeyIDFactory.lockObject">
+            <summary>
+            锁对象
+            </summary>
+        </member>
+        <member name="M:Common.KeyIDFactory.KeyIDFactory.#cctor">
+            <summary>
+            主键ID创建工厂
+            </summary>
+        </member>
+        <member name="M:Common.KeyIDFactory.KeyIDFactory.NewOrderID">
+            <summary>
+            创建新的订单编号（18位）
+            </summary>
+            <remarks>可支持高并发数据库主键的创建，主键长度为18位</remarks>
+            <returns>数据库主键</returns>
+        </member>
+        <member name="M:Common.KeyIDFactory.KeyIDFactory.NewKeyID(Common.KeyIDFactory.DataBase,System.String)">
+            <summary>
+            创建新的KeyID值
+            </summary>
+            <![CDATA[dataBase:数据库名称，从数据库枚举中直接进行选择;tableName:表名，指定的某个数据中中表的名称]]>
+            <remarks>可支持高并发数据库主键的创建，主键长度为28位</remarks>
+            <param name="dataBase">数据库名称</param>
+            <param name="tableName">表名</param>
+            <returns>数据库主键</returns>
+        </member>
+        <member name="M:Common.KeyIDFactory.KeyIDFactory.GetNumber(System.Int32)">
+            <summary>
+            得到一个随机数字
+            </summary>
+            <param name="length">数字长度，最大不超过19</param>
+            <returns>数字的字符串表示</returns>
+        </member>
+        <member name="M:Common.KeyIDFactory.KeyIDFactory.GetTableNameNumber(System.String)">
+            <summary>
+            获取表名的数字表示
+            </summary>
+            <param name="tableName">表名</param>
+            <returns>表名的数字表示</returns>
+        </member>
+        <member name="M:Common.KeyIDFactory.KeyIDFactory.GetDataBaseNameNumber(Common.KeyIDFactory.DataBase)">
+            <summary>
+            获取数据库名称的数字表示
+            </summary>
+            <param name="dataBase">数据库枚举</param>
+            <returns>数据库的数字表示</returns>
+        </member>
+        <member name="M:Common.KeyIDFactory.KeyIDFactory.GetGuidNumber">
+            <summary>
+            得到10长度的GUID数字
+            </summary>
+            <returns>GUID10个长度的数字</returns>
+        </member>
+        <member name="M:Common.KeyIDFactory.KeyIDFactory.GetRoadomNoZero(System.Int32)">
+            <summary>
+            得到随机数
+            </summary>
+            <param name="length">随机数长度</param>
+            <returns>随机数</returns>
+        </member>
+    </members>
+</doc>

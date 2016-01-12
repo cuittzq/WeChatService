@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Better.SecurityUtility</name>
+    </assembly>
+    <members>
+        <member name="T:Better.SecurityUtility.SecurityUtility">
+            <summary>
+            加密解密
+            </summary>
+        </member>
+        <member name="F:Better.SecurityUtility.SecurityUtility.smallKeys">
+            <summary>
+            关键Key
+            </summary>
+        </member>
+        <member name="M:Better.SecurityUtility.SecurityUtility.DecryptString(System.String)">
+            <summary>
+            解密
+            </summary>
+            <param name="decryptString">密文</param>
+            <returns>明文</returns>
+        </member>
+        <member name="M:Better.SecurityUtility.SecurityUtility.DecryptString(System.String,System.String,System.String)">
+            <summary>
+            解密
+            </summary>
+            <param name="decryptString">密文</param>
+            <param name="key">关键Key</param>
+            <param name="keyIV">不晓得</param>
+            <returns>明文</returns>
+        </member>
+        <member name="M:Better.SecurityUtility.SecurityUtility.EncryptDES(System.String)">
+            <summary>
+            加密
+            </summary>
+            <param name="encryptString">明文</param>
+            <returns>密文</returns>
+        </member>
+        <member name="M:Better.SecurityUtility.SecurityUtility.EncryptDES(System.String,System.String,System.String)">
+            <summary>
+            des加密
+            </summary>
+            <param name="encryptString">明文</param>
+            <param name="key">加密Key</param>
+            <param name="keyIV">不晓得</param>
+            <returns>密文</returns>
+        </member>
+    </members>
+</doc>
