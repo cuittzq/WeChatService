@@ -52,10 +52,24 @@ namespace Tzq.WeChatService.MessageBuiness
                             bugobj.Add("关键字搜索", request.Content);
                             if (request.Content.Contains("笑话"))
                             {
-                                MQiushibaike qiushibaike = JsonConvert.DeserializeObject<MQiushibaike>(QiushibaikeHelper.GetJokesByRandom());
-                                if (qiushibaike != null)
+                                List<MQiushibaike> qiushibaikelist = JsonConvert.DeserializeObject<List<MQiushibaike>>(QiushibaikeHelper.GetJokesByRandom());
+                                bugobj.Add("笑话", qiushibaikelist);
+                                if (qiushibaikelist != null)
                                 {
-                                    responseText.Content = string.Format(" {0} ---来源：@糗事百科 {1}", qiushibaike.JokeContent, qiushibaike.JokerName);
+                                    int index = 0;
+                                    foreach (var item in qiushibaikelist)
+                                    {
+                                        if (index == qiushibaikelist.Count - 1)
+                                        {
+                                            responseText.Content += string.Format(" {0} ---来源：@糗事百科 {1}", item.JokeContent, item.JokerName);
+                                        }
+                                        else
+                                        {
+                                            responseText.Content += string.Format(" {0} ---来源：@糗事百科 {1} {2}", item.JokeContent, item.JokerName, "-----我是分割线-----");
+                                        }
+
+                                        index++;
+                                    }
                                 }
                                 else
                                 {

@@ -37,22 +37,22 @@
       <publishTime>01/13/2016 11:14:34</publishTime>
     </File>
     <File Include="bin/Tzq.WeChatService.MessageBuiness.dll">
-      <publishTime>01/13/2016 16:58:24</publishTime>
+      <publishTime>01/13/2016 17:34:01</publishTime>
     </File>
     <File Include="bin/Tzq.WeChatService.MessageBuiness.pdb">
-      <publishTime>01/13/2016 16:58:24</publishTime>
+      <publishTime>01/13/2016 17:34:01</publishTime>
     </File>
     <File Include="bin/Tzq.WeChatService.Model.dll">
-      <publishTime>01/13/2016 16:58:22</publishTime>
+      <publishTime>01/13/2016 17:34:00</publishTime>
     </File>
     <File Include="bin/Tzq.WeChatService.Model.pdb">
-      <publishTime>01/13/2016 16:58:22</publishTime>
+      <publishTime>01/13/2016 17:34:00</publishTime>
     </File>
     <File Include="bin/Tzq.WeChatService.WebUI.dll">
-      <publishTime>01/13/2016 16:58:24</publishTime>
+      <publishTime>01/13/2016 17:34:02</publishTime>
     </File>
     <File Include="bin/Tzq.WeChatService.WebUI.pdb">
-      <publishTime>01/13/2016 16:58:24</publishTime>
+      <publishTime>01/13/2016 17:34:02</publishTime>
     </File>
     <File Include="bin/WCFConfig/QiushibaikeDataService.config">
       <publishTime>01/13/2016 11:56:04</publishTime>
@@ -64,7 +64,7 @@
       <publishTime>01/13/2016 11:56:04</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/13/2016 16:58:29</publishTime>
+      <publishTime>01/13/2016 17:34:06</publishTime>
     </File>
   </ItemGroup>
 </Project>
