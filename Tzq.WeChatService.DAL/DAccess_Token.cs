@@ -26,77 +26,6 @@ namespace Tzq.WeChatService.DAL
     public class DAccess_Token
     {
         /// <summary>
-        /// 根据企业ID获取公众号信息
-        /// </summary>
-        /// <param name="trans"></param>
-        /// <param name="conn"></param>
-        /// <param name="companyId"></param>
-        /// <returns></returns>
-        public MAccess_Token GetAccess_Token(IDbTransaction trans, IDbConnection conn, int companyId)
-        {
-            string sqlText = @"select KeyID,WeixinID,AppID,AppSecret,Access_Token,Grant_Type,AddTime,OutTime,ModifyTime,IsDelete,CompanyID,CompanyName from Access_Token 
-WHERE CompanyID = @CompanyID and IsDelete = 0 limit 1";
-            MySqlParameters destionParameters = new MySqlParameters();
-            destionParameters.Add(new MySqlParameter() { ParameterName = "@CompanyID", MySqlDbType = MySqlDbType.Int32, Value = companyId });
-
-            MAccess_Token access_Token = null;
-            using (MySqlDataReader reader = Common.DBUtility.MySqlHelper.ExecuteReader(trans, conn, sqlText, destionParameters.ToArray()))
-            {
-                while (reader.Read())
-                {
-                    access_Token = new MAccess_Token();
-                    access_Token.KeyID = reader["KeyID"] == DBNull.Value ? string.Empty : reader["KeyID"].ToString();
-                    access_Token.AppID = reader["AppID"] == DBNull.Value ? string.Empty : reader["AppID"].ToString();
-                    access_Token.AppSecret = reader["AppSecret"] == DBNull.Value ? string.Empty : reader["AppSecret"].ToString();
-                    access_Token.WeixinID = reader["WeixinID"] == DBNull.Value ? string.Empty : reader["WeixinID"].ToString();
-                    access_Token.Access_Token = reader["Access_Token"] == DBNull.Value ? string.Empty : SecurityUtility.DecryptString(reader["Access_Token"].ToString());
-                    access_Token.Grant_Type = reader["Grant_Type"] == DBNull.Value ? string.Empty : reader["Grant_Type"].ToString();
-                    access_Token.AddTime = reader["AddTime"] == DBNull.Value ? new DateTime(1990, 1, 1) : Convert.ToDateTime(reader["AddTime"]);
-                    access_Token.OutTime = reader["OutTime"] == DBNull.Value ? new DateTime(1990, 1, 1) : Convert.ToDateTime(reader["OutTime"]);
-                    access_Token.CompanyName = reader["CompanyName"] == DBNull.Value ? string.Empty : reader["CompanyName"].ToString();
-                    int companyid = 0;
-                    if (reader["CompanyID"] != DBNull.Value)
-                    {
-                        int.TryParse(reader["CompanyID"].ToString(), out companyid);
-                    }
-                    access_Token.CompanyID = companyid;
-                }
-            }
-
-            return access_Token;
-        }
-
-        /// <summary>
-        /// 保存企业的公众号信息
-        /// </summary>
-        /// <param name="trans"></param>
-        /// <param name="conn"></param>
-        /// <param name="access_Token"></param>
-        /// <returns></returns>
-        public bool SaveCompanyAccess_Token(IDbTransaction trans, IDbConnection conn, MAccess_Token access_Token)
-        {
-            // 1.获取企业公众号信息
-            MAccess_Token oldAccess_Token = GetAccess_Token(trans, conn, access_Token.CompanyID);
-            if (oldAccess_Token != null)
-            {
-                string updateSql = "UPDATE Access_Token SET AppID=@AppID,WeixinID=@WeixinID,AppSecret=@AppSecret,CompanyName=@CompanyName,Grant_Type='client_credential' WHERE KeyID=@KeyID LIMIT 1;";
-                MySqlParameter[] parameters ={
-                                               new  MySqlParameter(){ ParameterName="AppID",MySqlDbType= MySqlDbType.VarChar,Value=access_Token.AppID},
-                                               new  MySqlParameter(){ ParameterName="WeixinID",MySqlDbType= MySqlDbType.VarChar,Value=access_Token.WeixinID},
-                                               new  MySqlParameter(){ ParameterName="AppSecret",MySqlDbType= MySqlDbType.VarChar,Value=access_Token.AppSecret},
-                                               new  MySqlParameter(){ ParameterName="CompanyName",MySqlDbType= MySqlDbType.VarChar,Value=access_Token.CompanyName},
-                                               new  MySqlParameter(){ ParameterName="KeyID",MySqlDbType= MySqlDbType.VarChar,Value=oldAccess_Token.KeyID},
-                                             };
-
-                return Common.DBUtility.MySqlHelper.ExecuteSql(trans, conn, updateSql, parameters) > 0;
-            }
-            else
-            {
-                return InsertAccess_Token(trans, conn, access_Token);
-            }
-        }
-
-        /// <summary>
         /// 记录token
         /// </summary>
         /// <param name="trans">事物</param>
@@ -105,8 +34,8 @@ WHERE CompanyID = @CompanyID and IsDelete = 0 limit 1";
         /// <returns>是否成功</returns>
         public bool InsertAccess_Token(IDbTransaction trans, IDbConnection conn, MAccess_Token access_Token)
         {
-            string insertsql = @"Insert into  Access_Token(KeyID,AppID,WeixinID,AppSecret,Access_Token,RefreshToken,Grant_Type,OpenID,Scope,UnionID,AddTime,OutTime,ModifyTime,IsDelete,CompanyID,CompanyName
-                                            )VALUES(@KeyID,@AppID,@WeixinID,@AppSecret,@Access_Token,@RefreshToken,@Grant_Type,@OpenID,@Scope,@UnionID,now(),@OutTime,now(),0,@CompanyID,@CompanyName);";
+            string insertsql = @"Insert into  Access_Token(KeyID,AppID,WeixinID,AppSecret,Access_Token,RefreshToken,Grant_Type,OpenID,Scope,UnionID,AddTime,OutTime,ModifyTime,IsDelete
+                                            )VALUES(@KeyID,@AppID,@WeixinID,@AppSecret,@Access_Token,@RefreshToken,@Grant_Type,@OpenID,@Scope,@UnionID,now(),@OutTime,now(),0);";
             MySqlParameters parameters = new MySqlParameters();
             parameters.Add(new MySqlParameter() { ParameterName = "@KeyID", MySqlDbType = MySqlDbType.VarChar, Value = access_Token.KeyID });
             parameters.Add(new MySqlParameter() { ParameterName = "@AppID", MySqlDbType = MySqlDbType.VarChar, Value = access_Token.AppID });
@@ -119,8 +48,6 @@ WHERE CompanyID = @CompanyID and IsDelete = 0 limit 1";
             parameters.Add(new MySqlParameter() { ParameterName = "@Scope", MySqlDbType = MySqlDbType.VarChar, Value = access_Token.Scope });
             parameters.Add(new MySqlParameter() { ParameterName = "@UnionID", MySqlDbType = MySqlDbType.VarChar, Value = access_Token.UnionID });
             parameters.Add(new MySqlParameter() { ParameterName = "@OutTime", MySqlDbType = MySqlDbType.DateTime, Value = access_Token.OutTime });
-            parameters.Add(new MySqlParameter() { ParameterName = "@CompanyID", MySqlDbType = MySqlDbType.Int32, Value = access_Token.CompanyID });
-            parameters.Add(new MySqlParameter() { ParameterName = "@CompanyName", MySqlDbType = MySqlDbType.VarChar, Value = access_Token.CompanyName });
             return Common.DBUtility.MySqlHelper.ExecuteSql(trans, conn, insertsql, parameters.ToArray()) == 1;
         }
 
@@ -160,7 +87,7 @@ WHERE CompanyID = @CompanyID and IsDelete = 0 limit 1";
         /// <returns></returns>
         public MAccess_Token GetAccess_Token(IDbTransaction trans, IDbConnection conn, string appid, string appSecret, string grant_Type)
         {
-            string sqlText = @"select KeyID,WeixinID,AppID,AppSecret,Access_Token,Grant_Type,AddTime,OutTime,ModifyTime,IsDelete,CompanyID,CompanyName from Access_Token 
+            string sqlText = @"select KeyID,WeixinID,AppID,AppSecret,Access_Token,Grant_Type,AddTime,OutTime,ModifyTime,IsDelete  from Access_Token 
 WHERE AppID = @AppID and  AppSecret= @AppSecret and Grant_Type=@Grant_Type and IsDelete = 0 limit 1";
             MySqlParameters destionParameters = new MySqlParameters();
             destionParameters.Add(new MySqlParameter() { ParameterName = "@AppID", MySqlDbType = MySqlDbType.VarChar, Value = appid });
@@ -180,8 +107,6 @@ WHERE AppID = @AppID and  AppSecret= @AppSecret and Grant_Type=@Grant_Type and I
                     access_Token.Grant_Type = reader["Grant_Type"] == DBNull.Value ? string.Empty : reader["Grant_Type"].ToString();
                     access_Token.AddTime = reader["AddTime"] == DBNull.Value ? new DateTime(1990, 1, 1) : Convert.ToDateTime(reader["AddTime"]);
                     access_Token.OutTime = reader["OutTime"] == DBNull.Value ? new DateTime(1990, 1, 1) : Convert.ToDateTime(reader["OutTime"]);
-                    access_Token.CompanyID = reader["CompanyID"] == DBNull.Value ? 0 : Convert.ToInt32(reader["CompanyID"].ToString());
-                    access_Token.CompanyName = reader["CompanyName"] == DBNull.Value ? string.Empty : reader["CompanyName"].ToString();
                 }
             }
 
@@ -200,7 +125,7 @@ WHERE AppID = @AppID and  AppSecret= @AppSecret and Grant_Type=@Grant_Type and I
         /// <returns>用户令牌</returns>
         public MAccess_Token GetAccess_Token(IDbTransaction trans, IDbConnection conn, string appid, string appSecret, string openID, string scope)
         {
-            string sqlText = @"select KeyID,AppID,AppSecret,WeixinID,Access_Token, RefreshToken,Grant_Type,OpenID,Scope,UnionID,AddTime,OutTime,ModifyTime,IsDelete,CompanyID,CompanyName from Access_Token 
+            string sqlText = @"select KeyID,AppID,AppSecret,WeixinID,Access_Token, RefreshToken,Grant_Type,OpenID,Scope,UnionID,AddTime,OutTime,ModifyTime,IsDelete from Access_Token 
 WHERE AppID = @AppID and  AppSecret= @AppSecret and OpenID=@OpenID and Scope=@Scope and IsDelete = 0 limit 1";
             MySqlParameters destionParameters = new MySqlParameters();
             destionParameters.Add(new MySqlParameter() { ParameterName = "@AppID", MySqlDbType = MySqlDbType.VarChar, Value = appid });
@@ -226,8 +151,6 @@ WHERE AppID = @AppID and  AppSecret= @AppSecret and OpenID=@OpenID and Scope=@Sc
                     access_Token.UnionID = reader["UnionID"] == DBNull.Value ? string.Empty : reader["UnionID"].ToString();
                     access_Token.AddTime = reader["AddTime"] == DBNull.Value ? new DateTime(1990, 1, 1) : Convert.ToDateTime(reader["AddTime"]);
                     access_Token.OutTime = reader["OutTime"] == DBNull.Value ? new DateTime(1990, 1, 1) : Convert.ToDateTime(reader["OutTime"]);
-                    access_Token.CompanyID = reader["CompanyID"] == DBNull.Value ? 0 : Convert.ToInt32(reader["CompanyID"].ToString());
-                    access_Token.CompanyName = reader["CompanyName"] == DBNull.Value ? string.Empty : reader["CompanyName"].ToString();
                 }
             }
 
@@ -243,7 +166,7 @@ WHERE AppID = @AppID and  AppSecret= @AppSecret and OpenID=@OpenID and Scope=@Sc
         /// <returns></returns>
         public List<MAccess_Token> GetAccess_Token(IDbTransaction trans, IDbConnection conn, string grant_Type)
         {
-            string sqlText = @"select KeyID,AppID,WeixinID,AppSecret,Access_Token,Grant_Type,AddTime,OutTime,ModifyTime,CompanyID,IsDelete,CompanyID,CompanyName from Access_Token WHERE  Grant_Type=@Grant_Type and IsDelete = 0 ";
+            string sqlText = @"select KeyID,AppID,WeixinID,AppSecret,Access_Token,Grant_Type,AddTime,OutTime,ModifyTime,IsDelete  from Access_Token WHERE  Grant_Type=@Grant_Type and IsDelete = 0 ";
             MySqlParameters destionParameters = new MySqlParameters();
             destionParameters.Add(new MySqlParameter() { ParameterName = "@Grant_Type", MySqlDbType = MySqlDbType.VarChar, Value = grant_Type });
 
@@ -261,11 +184,8 @@ WHERE AppID = @AppID and  AppSecret= @AppSecret and OpenID=@OpenID and Scope=@Sc
                     access_Token.AppSecret = reader["AppSecret"] == DBNull.Value ? string.Empty : reader["AppSecret"].ToString();
                     access_Token.Access_Token = reader["Access_Token"] == DBNull.Value ? string.Empty : SecurityUtility.DecryptString(reader["Access_Token"].ToString());
                     access_Token.Grant_Type = reader["Grant_Type"] == DBNull.Value ? string.Empty : reader["Grant_Type"].ToString();
-                    access_Token.CompanyID = reader["CompanyID"] == DBNull.Value ? 0 : Convert.ToInt32(reader["CompanyID"]);
                     access_Token.AddTime = reader["AddTime"] == DBNull.Value ? new DateTime(1990, 1, 1) : Convert.ToDateTime(reader["AddTime"]);
                     access_Token.OutTime = reader["OutTime"] == DBNull.Value ? new DateTime(1990, 1, 1) : Convert.ToDateTime(reader["OutTime"]);
-                    access_Token.CompanyID = reader["CompanyID"] == DBNull.Value ? 0 : Convert.ToInt32(reader["CompanyID"].ToString());
-                    access_Token.CompanyName = reader["CompanyName"] == DBNull.Value ? string.Empty : reader["CompanyName"].ToString();
                     access_TokenList.Add(access_Token);
                 }
             }

@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tzq.WeChatService.Service",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tzq.WeChatService.WebUI", "Tzq.WeChatService.WebUI\Tzq.WeChatService.WebUI.csproj", "{81886F14-A976-4611-A6EF-E1508FF8CDBB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{8CE7E097-C1A0-4E69-AEBA-223F50B144CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{81886F14-A976-4611-A6EF-E1508FF8CDBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81886F14-A976-4611-A6EF-E1508FF8CDBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81886F14-A976-4611-A6EF-E1508FF8CDBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CE7E097-C1A0-4E69-AEBA-223F50B144CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CE7E097-C1A0-4E69-AEBA-223F50B144CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CE7E097-C1A0-4E69-AEBA-223F50B144CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CE7E097-C1A0-4E69-AEBA-223F50B144CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

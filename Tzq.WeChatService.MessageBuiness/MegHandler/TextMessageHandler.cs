@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Xml.Linq;
+using Tzq.WeChatService.Model;
+using Newtonsoft.Json;
+using Tzq.DataService.Helper;
 
 namespace Tzq.WeChatService.MessageBuiness
 {
@@ -47,20 +50,18 @@ namespace Tzq.WeChatService.MessageBuiness
                         {
                             // 关键字搜索
                             bugobj.Add("关键字搜索", request.Content);
-
-                            // bugobj.Add("搜索结果", getB2CProductInfo.ArticleMessages);
-                            //if (getB2CProductInfo.ArticleMessages != null && getB2CProductInfo.ArticleMessages.Count > 0)
-                            //{
-                            //    var response = new ResponseNewsMessage(request);
-                            //    response.CreateTime = DateTime.Now.Ticks;
-                            //    response.ArticleCount = getB2CProductInfo.ArticleMessages.Count;
-                            //    response.Articles = getB2CProductInfo.ArticleMessages;
-                            //    return response;
-                            //}
-                            //else
-                            //{
-                            //    responseText.Content = string.Format("暂时未搜索到【{0}】相应的旅游产品，你从下面的买家入口进入我的关注，浏览店铺的旅游信息。", request.Content);
-                            //}
+                            if (request.Content.Contains("笑话"))
+                            {
+                                MQiushibaike qiushibaike = JsonConvert.DeserializeObject<MQiushibaike>(QiushibaikeHelper.GetJokesByRandom());
+                                if (qiushibaike != null)
+                                {
+                                    responseText.Content = string.Format(" {0} ---来源：@糗事百科 {1}", qiushibaike.JokeContent, qiushibaike.JokerName);
+                                }
+                                else
+                                {
+                                    responseText.Content = "你在逗我？";
+                                }
+                            }
                         }
                         else
                         {

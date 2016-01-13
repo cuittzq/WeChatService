@@ -15,6 +15,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tzq.DataService.Helper;
+using Newtonsoft.Json;
 
 namespace Tzq.WeChatService.MessageBuiness
 {
@@ -60,7 +62,9 @@ namespace Tzq.WeChatService.MessageBuiness
                             msgtype = MsgType.Text;
                             break;
                         case "V1001_HOT":
-                            msgtype = MsgType.News;
+                            msgtype = MsgType.Text;
+                            MQiushibaike qiushibaike = JsonConvert.DeserializeObject<MQiushibaike>(QiushibaikeHelper.GetJokesByRandom());
+                            result = qiushibaike.JokeContent;
                             break;
                         default:
                             break;
@@ -91,37 +95,6 @@ namespace Tzq.WeChatService.MessageBuiness
                              CreateTime = DateTime.Now.Ticks,
                          };
                     case MsgType.News:
-                    //if (!string.IsNullOrEmpty(request.FromUserName))
-                    //{
-                    //    getB2CProductInfo = new GetB2CProductInfo(string.Empty, request.ToUserName, request.FromUserName);
-                    //    getB2CProductInfo.ExeuteMethod();
-                    //    // getB2CProductInfo.QueryB2CProductInfo(request.FromUserName);
-
-                    //    if (getB2CProductInfo.ArticleMessages != null && getB2CProductInfo.ArticleMessages.Count > 0)
-                    //    {
-                    //        var response = new ResponseNewsMessage(request);
-                    //        response.CreateTime = DateTime.Now.Ticks;
-                    //        response.ArticleCount = getB2CProductInfo.ArticleMessages.Count;
-                    //        response.Articles = getB2CProductInfo.ArticleMessages;
-                    //        return response;
-                    //    }
-                    //    else
-                    //    {
-                    //        return new ResponseTextMessage(request)
-                    //        {
-                    //            CreateTime = DateTime.Now.Ticks,
-                    //            Content = string.Format("产品太多，店主也不知道该推荐什么，您可以从下面的买家入口进入我的关注，浏览店铺的旅游信息。")
-                    //        };
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    return new ResponseTextMessage(request)
-                    //    {
-                    //        CreateTime = DateTime.Now.Ticks,
-                    //        Content = "信息格式不正确"
-                    //    };
-                    //}
                     case MsgType.Music:
                         break;
                     case MsgType.ShortVideo:

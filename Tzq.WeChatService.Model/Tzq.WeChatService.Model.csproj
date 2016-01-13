@@ -64,6 +64,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="DataModel\MAccess_Token.cs" />
     <Compile Include="DataModel\MenuInfo.cs" />
+    <Compile Include="DataModel\MQiushibaike.cs" />
     <Compile Include="DataModel\MTicketInfo.cs" />
     <Compile Include="MaterialModel\Article.cs" />
     <Compile Include="MaterialModel\MMaterialNodesRelation.cs" />

@@ -15,10 +15,7 @@ namespace Tzq.WeChatService.WebUI
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            TxtLogInfoObject txtLogInfoObject = new TxtLogInfoObject();
             Dictionary<string, object> bugobj = new Dictionary<string, object>();
-            bugobj.Add("Page_Load", "Page_Load");
-            TxtLogHelper.WriteDebugLog(bugobj);
             try
             {
                 bugobj.Add("HttpMethod", Request.HttpMethod.ToString());
@@ -61,9 +58,19 @@ namespace Tzq.WeChatService.WebUI
                 }
                 else if (Request.HttpMethod.ToUpper() == "GET") //微信服务器在首次验证时，需要进行一些验证，但。。。。
                 {
+                    bugobj.Add("signature", Request["signature"]);
+                    bugobj.Add("timestamp", Request["timestamp"]);
+                    bugobj.Add("nonce", Request["nonce"]);
                     bugobj.Add("微信验证", Request["echostr"]);
+                    string echostr = string.Empty;
+                    if (Request["echostr"] != null)
+                    {
+                        echostr = Request["echostr"].ToString();
+                    }
+
                     //我仅需返回给他echostr中的值，就为验证成功，可能微信觉得这些安全策略是为了保障我的服务器，要不要随你吧
-                    Response.Write(Request["echostr"].ToString());
+                    Response.Write(echostr);
+                    return;
                 }
             }
             catch (Exception ex)
@@ -74,6 +81,8 @@ namespace Tzq.WeChatService.WebUI
                     LogMessage = string.Format("错误信息{0}；堆栈信息{1}", ex.Message, ex.StackTrace),
                     LogObject = ex,
                 });
+
+                Response.Write("post数据为空");
             }
             finally
             {

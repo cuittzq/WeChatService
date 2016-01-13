@@ -87,15 +87,6 @@ namespace Tzq.WeChatService.Model
         /// </summary>
         private int isDelete;
 
-        private int companyID;
-
-        /// <summary>
-        /// 企业名称
-        /// </summary>
-        private string companyName = string.Empty;
-
-
-
 
         #endregion
 
@@ -241,22 +232,6 @@ namespace Tzq.WeChatService.Model
             set { this.isDelete = value; }
         }
 
-        [DataMember]
-        public int CompanyID
-        {
-            get { return companyID; }
-            set { companyID = value; }
-        }
-
-        /// <summary>
-        /// 企业名称
-        /// </summary>
-        [DataMember]
-        public string CompanyName
-        {
-            get { return companyName; }
-            set { companyName = value; }
-        }
         #endregion
 
     }

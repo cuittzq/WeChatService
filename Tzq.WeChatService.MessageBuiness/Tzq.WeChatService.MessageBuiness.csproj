@@ -43,6 +43,12 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Tzq.DataService.Contract">
+      <HintPath>..\PublicDll\Tzq.DataService.Contract.dll</HintPath>
+    </Reference>
+    <Reference Include="Tzq.DataService.Helper">
+      <HintPath>..\PublicDll\Tzq.DataService.Helper.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
